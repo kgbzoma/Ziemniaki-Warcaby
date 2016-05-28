@@ -8,5 +8,6 @@ namespace Warcaby
 {
     class Warcaby
     {
+        //silniczek
     }
 }
