@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IWarcabyView.cs" />
+    <Compile Include="Pionek.cs" />
     <Compile Include="Pole.cs" />
+    <Compile Include="Szachownica.cs" />
     <Compile Include="Warcaby.cs" />
     <Compile Include="WarcabyPresenter.cs" />
     <Compile Include="WarcabyView.cs">

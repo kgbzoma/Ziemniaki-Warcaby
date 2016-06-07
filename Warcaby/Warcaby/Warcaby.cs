@@ -8,6 +8,6 @@ namespace Warcaby
 {
     class Warcaby
     {
-        //silniczek123
+        //Szachownica gameBoard = new Szachownica(); //GDZIE UTWORZY POSZCZEGÓLNE POLA !?
     }
 }
