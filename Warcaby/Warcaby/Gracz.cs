@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+
 namespace Warcaby
 {
-    class Warcaby
+    class Gracz
     {
-        Szachownica gameBoard = new Szachownica();
-        Gracz gracz1 = new Gracz(Color.White);
-        Gracz gracz2 = new Gracz(Color.Black);
+        public Gracz(Color kolorPionkow)
+        {
+
+        }
     }
 }
