@@ -20,7 +20,7 @@ namespace Warcaby
 
             Warcaby model = new Warcaby();
             WarcabyView view = new WarcabyView();
-            WarcabyPresenter presenter = new WarcabyPresenter(view, model);
+            WarcabyPresenter presenter = new WarcabyPresenter(model, view);
             Application.Run(view);
         }
     }
