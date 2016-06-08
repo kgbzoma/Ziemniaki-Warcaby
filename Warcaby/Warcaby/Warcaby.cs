@@ -8,8 +8,8 @@ namespace Warcaby
 {
     class Warcaby
     {
-        Szachownica gameBoard = new Szachownica();
-        Gracz gracz1 = new Gracz(Color.White);
-        Gracz gracz2 = new Gracz(Color.Black);
+        static Szachownica gameBoard = new Szachownica();
+        Gracz player = new Gracz(Color.White,true,gameBoard);
+        Gracz aiPlayer = new Gracz(Color.Black,false,gameBoard);
     }
 }
