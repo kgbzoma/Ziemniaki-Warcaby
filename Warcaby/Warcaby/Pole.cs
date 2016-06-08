@@ -15,6 +15,7 @@ namespace Warcaby
             kolorPola = kolor;
         }
         private Point PunktRysowania;
+        Point JakiPunkt { get { return PunktRysowania; } }
         Color kolorPola;
         Color JakiKolor { get { return kolorPola; } }
         public bool czyPionek(Pole sprawdzane)
