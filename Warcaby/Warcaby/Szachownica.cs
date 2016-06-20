@@ -34,8 +34,30 @@ namespace Warcaby
                 return this.plansza[nowaWspolrzedna - 65, dwa - 1];
             }
 
-
-
+        }
+        public char getPoleX(Pole jakie)
+        {
+            for (char x = 'A'; x < 'I'; x++)
+            {
+                for (int y = 1; y < 9; y++)
+                {
+                    if (this[x, y] == jakie)
+                        return x;
+                }
+            }
+            throw new Exception("Brak pola");
+        }
+        public int getPoleY(Pole jakie)
+        {
+            for (char x = 'A'; x < 'I'; x++)
+            {
+                for (int y = 1; y < 9; y++)
+                {
+                    if (this[x, y] == jakie)
+                        return y;
+                }
+            }
+            throw new Exception("Brak pola");
         }
     }
 }

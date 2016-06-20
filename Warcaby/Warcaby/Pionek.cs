@@ -18,5 +18,7 @@ namespace Warcaby
         bool czyDamka = false;
         public Color jakiKolor { get { return kolor; } }
         public Pole PolePionka { get { return naKtórymLeży; }set { naKtórymLeży = value; } }
+        
+        
     }
 }

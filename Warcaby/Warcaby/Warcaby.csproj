@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.cs" />
     <Compile Include="Gracz.cs" />
     <Compile Include="IWarcabyView.cs" />
     <Compile Include="Pionek.cs" />

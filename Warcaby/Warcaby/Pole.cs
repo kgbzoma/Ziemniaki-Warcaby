@@ -17,24 +17,7 @@ namespace Warcaby
         private Point PunktRysowania;
         Point JakiPunkt { get { return PunktRysowania; } }
         Color kolorPola;
-        Color JakiKolor { get { return kolorPola; } }
-        public bool czyPionek(Pole sprawdzane)
-        {
-            /*
-            foreach(var a in pionkiBiale)
-            {
-                if (a.SprawdzPole == this)
-                    return true;
-               
-            }
-            foreach (var a in pionkiCzarne)
-            {
-                if (a.SprawdzPole == this)
-                    return true;
-            }
-            */
-            return false;
-
-        }
+        public Color JakiKolor { get { return kolorPola; } }
+        
     }
 }
