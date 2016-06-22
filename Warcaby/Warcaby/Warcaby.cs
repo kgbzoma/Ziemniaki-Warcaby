@@ -17,17 +17,17 @@ namespace Warcaby
         //Sprawdzanie czy ruch jest mozliwy ?
         // Sprawdzanie czy bicie jest mozliwe?
         // Kolejnosc. Prezenter przekazuje mi ruch. Ja sprawdzam czy idzie wykonać bicie dla jakiegokolwiek innego pionka. Jesli tak ORAZ to jest wlasnie ten ruch co mi pokazał tamten gracz to wykonuje 
-        public bool isMovePossible(Pole stare,Pole nowe,Gracz graczKtoregoSprawdzam)
-        {
+        //public bool isMovePossible(Pole stare,Pole nowe,Gracz graczKtoregoSprawdzam)
+        //{
             //Czy można ruch na to pole ?
             //Czy można zbić to pole?
             //Czy można ruszyć się w tą stronę
-            if(graczKtoregoSprawdzam.isPionekonPole(stare))
-            {
+          //  if(graczKtoregoSprawdzam.isPionekPole(stare))
+           // {
                // sadas
-            }
-            return true;
-        }
+          //  }
+           // return true;
+       // }
         public bool moveWayPossible(Pole stare,Pole nowe)
         {
             if(graczPrzyKolejce==player)

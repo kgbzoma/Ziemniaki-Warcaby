@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Warcaby
 {
@@ -11,6 +12,18 @@ namespace Warcaby
 
         private Warcaby model;
         private WarcabyView view;
+        private  static Szachownica gameBoard = new Szachownica();
+        private Gracz player = new Gracz(Color.White, true, gameBoard);
+        private Gracz aiPlayer = new Gracz(Color.Black, false, gameBoard);
+        private Gracz graczPrzyKolejce;
+
+
+
+        public WarcabyPresenter (WarcabyView view)
+        {
+            this.view = view;
+           
+        }
 
 
         private WarcabyView View
