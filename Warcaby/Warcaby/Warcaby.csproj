@@ -50,7 +50,6 @@
     <Compile Include="AI.cs" />
     <Compile Include="Gracz.cs" />
     <Compile Include="IWarcabyView.cs" />
-    <Compile Include="KtorePole.cs" />
     <Compile Include="Pionek.cs" />
     <Compile Include="Pole.cs" />
     <Compile Include="Ruch.cs" />

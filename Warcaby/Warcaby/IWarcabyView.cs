@@ -14,7 +14,7 @@ namespace Warcaby
 
         int Wiersze { get; }
 
-      //  KtorePole this[int wiersze,int kolumny] { get; set; }
+       // KtorePole this[int wiersze,int kolumny] { get; set; }
 
     }
 }
