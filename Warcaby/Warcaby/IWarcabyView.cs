@@ -8,5 +8,13 @@ namespace Warcaby
 {
     class IWarcabyView
     {
+        int Rozmiar { get; }
+
+        int Kolumny { get; }
+
+        int Wiersze { get; }
+
+      //  KtorePole this[int wiersze,int kolumny] { get; set; }
+
     }
 }
