@@ -45,3 +45,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.pdb
+Warcaby/.vs/Warcaby/v14/.suo
+*.config
+Warcaby/Warcaby/App.config
+*.config
+Warcaby/Warcaby/obj/Debug/Warcaby.Properties.Resources.resources
+*.resources
+*.exe
+Warcaby/Warcaby/obj/Debug/Warcaby.csproj.FileListAbsolute.txt
+*.cache
+*.pdb
+Warcaby/Warcaby/bin/Debug/Warcaby.exe
+*.exe
