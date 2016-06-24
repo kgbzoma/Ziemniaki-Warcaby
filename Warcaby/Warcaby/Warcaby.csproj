@@ -52,6 +52,7 @@
     <Compile Include="IWarcabyView.cs" />
     <Compile Include="Pionek.cs" />
     <Compile Include="Pole.cs" />
+    <Compile Include="Ruch.cs" />
     <Compile Include="Szachownica.cs" />
     <Compile Include="Warcaby.cs" />
     <Compile Include="WarcabyPresenter.cs" />

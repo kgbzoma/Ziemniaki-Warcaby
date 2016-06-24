@@ -16,7 +16,7 @@ namespace Warcaby
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
 
             Warcaby model = new Warcaby();
             WarcabyView view = new WarcabyView();
