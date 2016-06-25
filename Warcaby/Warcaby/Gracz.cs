@@ -45,6 +45,8 @@ namespace Warcaby
                         if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
                             if (gameBoard.sprawdzanieRuchow(this,gameBoard[i,j]).skad!= gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]).dokad)
                                 biciaMaxymalne.Add(gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]));
+            if (!biciaMaxymalne.Any()) ;
+            //koniec gry
         }
         public void czyszczenieRuchow()
         {
@@ -58,8 +60,47 @@ namespace Warcaby
                 foreach (var a in biciaMaxymalne)
                     if (a.skad == sor)
                         return true;
+                    
             return false;
         }
+        public void zaznaczono(Pole spr)
+        {
+            foreach (var a in biciaMaxymalne)
+                if (a.skad != spr)
+                    biciaMaxymalne.Remove(a);
+        }
+        public void odznaczono(Szachownica gameBoard)
+        {
+            czyszczenieRuchow();
+            MozliweBicia(gameBoard);
+            
+        }
+        public bool czyMogeWykonacRuch(Pole skad, Pole dokad)
+        {
+            foreach (var a in biciaMaxymalne)
+                if (a.skad == skad && a.dokad == dokad)
+                    return true;
+            return false;
+        }
+        public void wykonajRuch(Pole skad, Pole dokad,Szachownica gameBoard)
+        {
+            foreach (var a in biciaMaxymalne)
+                if (a.skad == skad && a.dokad == dokad)
+                    gameBoard.wykonajRuch(a);
+            
+        }
+        public void ruchAi(Szachownica gameBoard)
+        {
+            Random rnd = new Random();
+            int r = rnd.Next(biciaMaxymalne.Count);
+            gameBoard.wykonajRuch(biciaMaxymalne[r]);
 
+        }
+        public bool czyToJuzJestKoniec()
+        {
+            if (!biciaMaxymalne.Any())
+                return true;
+            else return false;
+        }
     }
 }

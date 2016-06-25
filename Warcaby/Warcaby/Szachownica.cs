@@ -38,20 +38,28 @@ namespace Warcaby
                 for (int i = 0; i <= 7; i++)
                     for (int j = 5; j <= 7; j++)
                         if (plansza[i, j].jakiKolorMaPole == Color.BlanchedAlmond)
-                            wszystkiePionki.Add(new Pionek(nowywlascicielHuman, plansza[i, j]));
+                            wszystkiePionki.Add(new Pionek(nowywlascicielHuman, plansza[i, j],false));
                                 
             
                 for (int i = 0; i <= 7; i++)
                     for (int j = 0;j <= 2; j++)
                         if (plansza[i, j].jakiKolorMaPole == Color.BlanchedAlmond)
-                            wszystkiePionki.Add(new Pionek(nowyWlascicielComputer, plansza[i, j]));
+                            wszystkiePionki.Add(new Pionek(nowyWlascicielComputer, plansza[i, j],false));
 
             
         }
         public bool czyJestPionek(Pole sprawdzane)
         {
             foreach (var a in wszystkiePionki)
-                if (a.polePionka == sprawdzane)
+                if (a.polePionka == sprawdzane && a.czyDamka == false)
+                    return true;
+                
+            return false;
+        }
+        public bool czyJestDamka(Pole sprawdzane)
+        {
+            foreach (var a in wszystkiePionki)
+                if (a.polePionka == sprawdzane && a.czyDamka == true)
                     return true;
             return false;
         }
@@ -192,6 +200,14 @@ namespace Warcaby
             
     }
        
+    public void wykonajRuch(Ruch coMamWykonac)
+        {
+            zdobaczPionkaZPola(coMamWykonac.skad).poruszPionek(coMamWykonac.dokad);
+            foreach (var a in coMamWykonac.pionkiDoZbicia)
+                foreach (var b in wszystkiePionki)
+                    if (a.polePionka == b.polePionka)
+                        wszystkiePionki.Remove(b);
+        }
     }
 
 }

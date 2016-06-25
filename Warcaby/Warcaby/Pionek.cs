@@ -10,28 +10,18 @@ namespace Warcaby
     class Pionek {
         private Pole naJakimPoluPionek;
         private Gracz wlasciciel;
+        public bool czyDamka { get; private set; }
         public Gracz czyjJestTenPionek { get { return wlasciciel; } }
         public Pole polePionka { get { return naJakimPoluPionek; } }
-        public Pionek(Gracz nowyWlasciciel,Pole mojNowyDomek)
+        public Pionek(Gracz nowyWlasciciel,Pole mojNowyDomek,bool damka)
         {
             naJakimPoluPionek = mojNowyDomek;
             wlasciciel = nowyWlasciciel;
+            czyDamka = damka;
         }
-        //Brak Podziału na białe i czarne bo uznałem że zrobimy 2 listy takich pionków. Dzienkówa.
-    /*
-        public Pionek(Pole naKtorymZaczyna,Color kolorPionka,Gracz wlasnosc)
+        public void poruszPionek(Pole dokad)
         {
-            naKtórymLeży = naKtorymZaczyna;
-            wlasciciel = wlasnosc;
+            naJakimPoluPionek = dokad;
         }
-        private Pole naKtórymLeży;
-        private Color kolor;
-        private Gracz wlasciciel;
-        bool czyDamka = false;
-        public Color jakiKolor { get { return kolor; } }
-        public Gracz czyjPionek { get { return wlasciciel; } }
-        public Pole PolePionka { get { return naKtórymLeży; }set { naKtórymLeży = value; } }
-        */
-        
     }
 }

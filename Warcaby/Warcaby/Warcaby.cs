@@ -13,13 +13,18 @@ namespace Warcaby
         private Gracz humanPlayer;
         private Gracz computerPlayer;
         private Gracz graczPrzyKolejce;
-        private List<Ruch> listaMozliwychRuchow=new List<Ruch>();
-
+        //private List<Ruch> listaMozliwychRuchow=new List<Ruch>();
+        private Pole zaznaczone=null;
+        bool czyZaznaczonoCos = false;
         public Warcaby()
         {
            /* kolorZostalWybrany(Color.White);
             if (czyMoznaZaznaczyc(gameBoard['A', 6]))
                 MessageBox.Show("MOZNA");*/
+        }
+        public Szachownica dostanPlansze()
+        {
+            return gameBoard;
         }
         public void kolorZostalWybrany(Color wybranyKolor)
         {
@@ -50,11 +55,46 @@ namespace Warcaby
         }
         public bool czyMoznaZaznaczyc(Pole zaznaczonePole)
         {
-            if (gameBoard.czyJestPionekTegoPana(graczPrzyKolejce, zaznaczonePole) && graczPrzyKolejce.czyMoznaZaznaczycPionka(zaznaczonePole))
+            if (gameBoard.czyJestPionekTegoPana(graczPrzyKolejce, zaznaczonePole))
             {
-                return true;
+                if (zaznaczone == null)
+                {
+                    if (graczPrzyKolejce.czyMoznaZaznaczycPionka(zaznaczonePole))
+                    {
+                        zaznaczone = zaznaczonePole;
+                        graczPrzyKolejce.zaznaczono(zaznaczonePole);
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                else if(zaznaczone!=null)
+                {
+                    if(zaznaczone==zaznaczonePole)
+                    {
+                        zaznaczone = null;
+                        graczPrzyKolejce.odznaczono(gameBoard);
+                        return false;
+                    }
+                    else
+                    {
+                        if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
+                        {
+                            graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, gameBoard);
+                            zmianaKolejki();
+                            graczPrzyKolejce.MozliweBicia(gameBoard);
+                            graczPrzyKolejce.ruchAi(gameBoard);
+                        }
+                    }
+                }
+               
             }
+            
             return false;
+        }
+        public bool czyKoniec()
+        {
+            return graczPrzyKolejce.czyToJuzJestKoniec();
         }
 
     }

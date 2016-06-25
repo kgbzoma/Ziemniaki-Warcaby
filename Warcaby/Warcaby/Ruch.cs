@@ -9,7 +9,7 @@ namespace Warcaby
     class Ruch
     {
         
-        private List<Pionek> pionkiDoZbicia = new List<Pionek>();
+        public List<Pionek> pionkiDoZbicia { get; private set; }
         public Pole skad { get; private set; }
         public Pole dokad { get; private set; }
         public int silaBicia{ get { return pionkiDoZbicia.Count; } }
