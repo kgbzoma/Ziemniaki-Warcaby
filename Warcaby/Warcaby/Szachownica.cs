@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-
+using System.Windows.Forms;
 namespace Warcaby
 {
     class Szachownica
@@ -14,7 +14,7 @@ namespace Warcaby
         public Tuple<int, int> zdobadzPozycje(Pole sprawdzane)
         {
             for (int i = 0; i <= 7; i++)
-                for (int j = 0; i <= 7; j++)
+                for (int j = 0; j <= 7; j++)
                     if (plansza[i, j] == sprawdzane)
                         return Tuple.Create(i, j);
             throw new Exception("Pole nie istnieje");
@@ -26,8 +26,9 @@ namespace Warcaby
                 for (int j = 0; j <= 7; j++)
                 {
                     plansza[i, j] = new Pole(kolorPola);
+                    if(j!=7)
                     if (kolorPola == Color.Black)
-                        kolorPola = Color.White;
+                        kolorPola = Color.BlanchedAlmond;
                     else kolorPola = Color.Black;
                 }
         }
@@ -35,17 +36,17 @@ namespace Warcaby
         {
             
                 for (int i = 0; i <= 7; i++)
-                    for (int j = 5; i <= 7; i++)
-                        if (plansza[i, j].jakiKolorMaPole == Color.Black)
+                    for (int j = 5; j <= 7; j++)
+                        if (plansza[i, j].jakiKolorMaPole == Color.BlanchedAlmond)
                             wszystkiePionki.Add(new Pionek(nowywlascicielHuman, plansza[i, j]));
                                 
             
                 for (int i = 0; i <= 7; i++)
-                    for (int j = 0; i <= 2; i++)
-                        if (plansza[i, j].jakiKolorMaPole == Color.Black)
+                    for (int j = 0;j <= 2; j++)
+                        if (plansza[i, j].jakiKolorMaPole == Color.BlanchedAlmond)
                             wszystkiePionki.Add(new Pionek(nowyWlascicielComputer, plansza[i, j]));
-            
 
+            
         }
         public bool czyJestPionek(Pole sprawdzane)
         {
@@ -54,71 +55,112 @@ namespace Warcaby
                     return true;
             return false;
         }
-        public List<Pionek> sprawdzanieBicia(Gracz wlasciciel)
+        public Ruch sprawdzanieBicia(Gracz wlasciciel, Pole sprawdzane,Pole oryginal, List<Pionek> listaDoZbicia)
         {
-            List<Pionek> odpowiedz = new List<Pionek>();
+            //List<Pionek> odpowiedz = new List<Pionek>();
+
             if (wlasciciel.czyJestemCzlowiekiem)
             {
-                foreach (var a in wszystkiePionki)
+                if (czyWPlanszyiWolne(sprawdzane, -2, -2))
                 {
-                    if (wlasciciel == a.czyjJestTenPionek)
+
+                    if (czyCosObokDoZbicia(sprawdzane, -1, -1, wlasciciel))
                     {
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 - 1, para.Item2 - 1]));
+                        sprawdzanieBicia(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia);
+                    }
+                }
+                if (czyWPlanszyiWolne(sprawdzane, 2, -2))
+                {
+
+                    if (czyCosObokDoZbicia(sprawdzane, 1, -1, wlasciciel))
+                    {
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 + 1, para.Item2 - 1]));
+                        sprawdzanieBicia(wlasciciel, plansza[para.Item1 + 2, para.Item2 - 2], oryginal, listaDoZbicia);
+                    }
+                }
 
 
-                        if (czyWPlanszyiWolne(a, -2, -2))
-                        {
+            
+            }
 
-                            if (czyCosObokDoZbicia(a, -1, -1, wlasciciel))
-                                odpowiedz.Add(a);
-                        }
-                        if (czyWPlanszyiWolne(a, 2, -2))
-                        {
+            else
+            {
+                if (czyWPlanszyiWolne(sprawdzane, -2, 2))
+                {
 
-                            if (czyCosObokDoZbicia(a, 1, -1, wlasciciel))
-                                odpowiedz.Add(a);
-                        }
+                    if (czyCosObokDoZbicia(sprawdzane, -1, 1, wlasciciel))
+                    {
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 - 2, para.Item2 +2]));
+                        sprawdzanieBicia(wlasciciel, plansza[para.Item1 - 1, para.Item2 +1],oryginal, listaDoZbicia);
+                    }
+                }
+                if (czyWPlanszyiWolne(sprawdzane, 2, 2))
+                {
+
+                    if (czyCosObokDoZbicia(sprawdzane, 1, 1, wlasciciel))
+                    {
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 + 2, para.Item2 + 2]));
+                        sprawdzanieBicia(wlasciciel, plansza[para.Item1 + 1, para.Item2 + 1],oryginal, listaDoZbicia);
                     }
 
+                }
+
+            }
+
+            return new Ruch(oryginal, sprawdzane, listaDoZbicia);
+        }
+        public Ruch sprawdzanieRuchow(Gracz wlasciciel, Pole sprawdzane)
+        {
+            //List<Pionek> odpowiedz = new List<Pionek>();
+
+            if (wlasciciel.czyJestemCzlowiekiem)
+            {
+                if (czyWPlanszyiWolne(sprawdzane, -1, -1))
+                {
+                    Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                    return new Ruch(sprawdzane, plansza[para.Item1 - 1, para.Item2-1], new List<Pionek>());
+                }
+                if (czyWPlanszyiWolne(sprawdzane, 1, -1))
+                {                   
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        return new Ruch(sprawdzane, plansza[para.Item1 + 1, para.Item2-1], new List<Pionek>());   
                 }
             }
             else
             {
-                foreach (var a in wszystkiePionki)
-                {
-                    if (wlasciciel == a.czyjJestTenPionek)
-                    {
-
-
-                        if (czyWPlanszyiWolne(a, -2, 2))
-                        {
-
-                            if (czyCosObokDoZbicia(a, -1, 1, wlasciciel))
-                                odpowiedz.Add(a);
-                        }
-                        if (czyWPlanszyiWolne(a, 2, 2))
-                        {
-
-                            if (czyCosObokDoZbicia(a, 1, 1, wlasciciel))
-                                odpowiedz.Add(a);
-                        }
-                    }
-
+                if (czyWPlanszyiWolne(sprawdzane, -1, 1))
+                {                   
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        return new Ruch(sprawdzane, plansza[para.Item1 - 1, para.Item2+1], new List<Pionek>());
                 }
-            }
+                if (czyWPlanszyiWolne(sprawdzane, 1, 1))
+                {                   
+                        Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+                        return new Ruch(sprawdzane, plansza[para.Item1 + 1, para.Item2+1], new List<Pionek>());
+                }
 
-            return odpowiedz;
+            }
+            return new Ruch(sprawdzane, sprawdzane, new List<Pionek>());
         }
-        public bool czyWPlanszyiWolne(Pionek sprawdzany, int roznicadlaX, int roznicadlaY)
+
+            
+        
+        public bool czyWPlanszyiWolne(Pole sprawdzany, int roznicadlaX, int roznicadlaY)
         {
-            Tuple<int, int> para = zdobadzPozycje(sprawdzany.polePionka);
+            Tuple<int, int> para = zdobadzPozycje(sprawdzany);
             if ((para.Item1 + roznicadlaX >= 0 && para.Item1 + roznicadlaX <= 7) && (para.Item2 + roznicadlaY >= 0 && para.Item2 + roznicadlaY <= 7))
-                if (czyJestPionek(plansza[para.Item1 + roznicadlaX,para.Item2+ roznicadlaY]))
+                if (!czyJestPionek(plansza[para.Item1 + roznicadlaX,para.Item2+ roznicadlaY]))
                 return true;
             return false;
         }
-        public bool czyCosObokDoZbicia(Pionek sprawdzany, int roznicadlaX,int roznicadlaY,Gracz wlascicielspr)
+        public bool czyCosObokDoZbicia(Pole sprawdzany, int roznicadlaX,int roznicadlaY,Gracz wlascicielspr)
         {
-            Tuple<int, int> para = zdobadzPozycje(sprawdzany.polePionka);
+            Tuple<int, int> para = zdobadzPozycje(sprawdzany);
 
             foreach (var b in wszystkiePionki)
                 if (b.polePionka == plansza[para.Item1 + roznicadlaX, para.Item2 + roznicadlaY] && b.czyjJestTenPionek != wlascicielspr)
@@ -141,98 +183,15 @@ namespace Warcaby
                     return true;
             return false;
         }
-        public void generowanieRuchowKurdeBele() { }
-        /*
-        public Szachownica()
-        {
-            Point punktPoczatkowy = new Point(0, 0); //50 px wysokosci
-            int zmiana = 50;
-            Color kolor = Color.White;
-            for(int y=0;y<8;y++)
-            {
-               for(int x=0;x<8;x++)
-               {
-                   plansza[x, y] = new Pole(new Point(punktPoczatkowy.X + (zmiana * x), punktPoczatkowy.Y + (zmiana * y)), kolor);
-                   if (kolor == Color.White)
-                       kolor = Color.Black;
-                   else kolor = Color.White;
-               }
-            }
-        }
-        Pole[,] plansza=new Pole[8,8];
-        private List<Pionek> ulozonePionki = new List<Pionek>();
-        public void ulozPionki(List<Pionek> v)
-        {
-            foreach (var a in v)
-                ulozonePionki.Add(a);
-        }
-        public bool jestPionek(Pole a)
-        {
-            foreach (var pionek in ulozonePionki)
-                if (pionek.PolePionka == a)
-                    return true;
-            return false;
-        }
-        public Color jakiKolorPionka(Pole a)
-        {
-            foreach (var b in ulozonePionki)
-                if (b.PolePionka == a)
-                    return b.jakiKolor;
-
-            throw new Exception("Podano złe pole z prośba o kolor");
-        }
-        public Pole this[char jeden, int dwa]
-        {
-            get
-            {
-                int nowaWspolrzedna = Convert.ToInt32(jeden); //65 dla A
-                return this.plansza[nowaWspolrzedna - 65, dwa - 1];
-            }
-
-        }
-       // public Gracz poznajWlasciciela()
-        public char getPoleX(Pole jakie)
-        {
-            for (char x = 'A'; x < 'I'; x++)
-            {
-                for (int y = 1; y < 9; y++)
-                {
-                    if (this[x, y] == jakie)
-                        return x;
-                }
-            }
-            throw new Exception("Brak pola");
-        }
-        public int getPoleY(Pole jakie)
-        {
-            for (char x = 'A'; x < 'I'; x++)
-            {
-                for (int y = 1; y < 9; y++)
-                {
-                    if (this[x, y] == jakie)
-                        return y;
-                }
-            }
-            throw new Exception("Brak pola");
-        }
-        public List<Pionek> sprawdzBicia(Gracz sprawdzanyGracz,bool kierunek)//0 dol 1 gora
-        {
-            if (kierunek)
-            {
-                List<Pionek> odpowiedz = new List<Pionek>;
-                foreach (var a in ulozonePionki)
-                    if (a.czyjPionek == sprawdzanyGracz)
-                    {
-                        if(getPoleX(a.PolePionka)-2>='A'&&getPoleY(a.PolePionka)-2>=1)
-                        {
-                            if(!jestPionek(this[Convert.ToChar(getPoleX(a.PolePionka)-2),getPoleY(a.PolePionka)-2])&&jestPionek(this[Convert.ToChar(getPoleX(a.PolePionka)-1),getPoleY(a.PolePionka)-1])&&)
-
-                        }
-                    }
-            }
-
-        }
-        */
+    public Pionek zdobaczPionkaZPola(Pole ktore)
+    {
+            foreach (var a in wszystkiePionki)
+                if (a.polePionka == ktore)
+                    return a;
+            throw new Exception("Na Tym Polu Nie ma Pionka");
+            
     }
-    
+       
+    }
+
 }

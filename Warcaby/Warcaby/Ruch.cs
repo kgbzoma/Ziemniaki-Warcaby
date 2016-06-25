@@ -8,18 +8,18 @@ namespace Warcaby
 {
     class Ruch
     {
-        private List<int> pozycje = new List<int>();
-
-        #region Konstruktory
-        public Ruch() { }
-        public Ruch(int pierwszy, params int[] czekaj)
+        
+        private List<Pionek> pionkiDoZbicia = new List<Pionek>();
+        public Pole skad { get; private set; }
+        public Pole dokad { get; private set; }
+        public int silaBicia{ get { return pionkiDoZbicia.Count; } }
+        public Ruch(Pole z, Pole d, List<Pionek> doZbicia)
         {
-
+            skad = z;
+            dokad = d;
+            pionkiDoZbicia = doZbicia;
         }
 
 
-        #endregion
-
-       // public void DodajRuch()
     }
 }
