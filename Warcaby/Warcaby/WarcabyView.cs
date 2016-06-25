@@ -14,6 +14,7 @@ namespace Warcaby
     {
        // UserInteractionArgs.KtorePole ktorePole;
         private List<Pole> listaPol = new List<Pole>();
+        private Szachownica szachownica = new Szachownica();
         public class UserInteractionArgs : EventArgs
         {
             public enum KtorePole
@@ -28,15 +29,22 @@ namespace Warcaby
             public KtorePole Typ { get; private set; }
             public KolorGracza Gracz { get; private set; }
             public Point Lokacja { get; private set; }
-            private Szachownica szachownica = new Szachownica();
+            public string Wybor { get; private set; }
 
 
-            public UserInteractionArgs(KtorePole typ, Point lokacja)
+
+          /* public UserInteractionArgs(KtorePole typ, Point lokacja)
             {
                 Typ = typ;
                 Lokacja = lokacja;
             }
+            */
 
+            public UserInteractionArgs(KolorGracza gracz, string wybor)
+            {
+                Gracz = gracz;
+                Wybor = wybor;
+            }
         }
 
         public event EventHandler<UserInteractionArgs> UserInteraction;
@@ -48,70 +56,78 @@ namespace Warcaby
 
             private void WarcabyView_Paint(object sender, PaintEventArgs e)
             {
+            /*
+                            int xPos = 25;
+                            int yPos = 50;
 
-                int xPos = 25;
-                int yPos = 50;
-
-                bool drawBlack = true;
-
-                
-
-                for (int x = 0; x < 8; x++)
-                {
-                    for (int y = 0; y < 8; y++)
-                    {
-                        if (drawBlack)
-                        {
-                            Pole pole = new Pole(new Point(xPos, yPos), Color.Black);
-                            pole.JakiPunkt = new Point(xPos, yPos);
-                            UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Czarne, new Point(xPos, yPos));
-                            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-                            System.Drawing.Graphics formGraphics = this.CreateGraphics();
-                            formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
-                            myBrush.Dispose();
-                            formGraphics.Dispose();
-                            listaPol.Add(pole);
-                        }
-                        else
-                        {
-                            Pole pole = new Pole(new Point(xPos, yPos), Color.BlanchedAlmond);
-                            UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Biale, new Point(xPos, yPos));
-                            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.BlanchedAlmond);
-                            System.Drawing.Graphics formGraphics = this.CreateGraphics();
-                            formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
-                            myBrush.Dispose();
-                            formGraphics.Dispose();
-                            listaPol.Add(pole);
-                        }
-
-                        xPos += 50;
-                        drawBlack = !drawBlack;
-                    }
-
-                    yPos += 50;
-                    xPos = 25;
-                    drawBlack = !drawBlack; // zeby kolejnosc w nastepnej linii pol czarne-biale byla inna, niz w poprzedniej linii 
-                }
+                            bool drawBlack = true;
 
 
-            }
+
+                            for (int x = 0; x < 8; x++)
+                            {
+                                for (int y = 0; y < 8; y++)
+                                {
+                                if (drawBlack)
+                                {
+
+
+                                    UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Czarne, new Point(xPos, yPos));
+                                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+                                    System.Drawing.Graphics formGraphics = this.CreateGraphics();
+                                    formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
+                                    myBrush.Dispose();
+                                    formGraphics.Dispose();
+
+                                }
+                                else
+                                {
+
+                                    UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Biale, new Point(xPos, yPos));
+                                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.BlanchedAlmond);
+                                    System.Drawing.Graphics formGraphics = this.CreateGraphics();
+                                    formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
+                                    myBrush.Dispose();
+                                    formGraphics.Dispose();
+
+                                }
+
+                                    xPos += 50;
+                                    drawBlack = !drawBlack;
+                                }
+
+                                yPos += 50;
+                                xPos = 25;
+                                drawBlack = !drawBlack; // zeby kolejnosc w nastepnej linii pol czarne-biale byla inna, niz w poprzedniej linii 
+                            }
+            */
+
+        }
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-            
+           
         }
 
-        protected virtual void OnUserInteraction(UserInteractionArgs.KtorePole typ , Point Lokacja)
+        protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ , ComboBox box)
         {
-            if (Lokacja.X <25 && Lokacja.Y <50) { return; }
-            var args = new UserInteractionArgs(typ, Lokacja);
+            if (box.SelectedIndex == 0) { return; }
+            var args = new UserInteractionArgs(typ, box.SelectedText);
             UserInteraction?.Invoke(this, args);
             
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-          //  if(comboBox1.SelectedIndex == 1)
+          if(comboBox1.SelectedIndex == 1)
+            {
+                OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
+            }
+          else if(comboBox1.SelectedIndex == 2)
+            {
+                OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
+            }
+
                 
         }
     }
