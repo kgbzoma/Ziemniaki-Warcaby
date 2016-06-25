@@ -36,10 +36,21 @@ namespace Warcaby
 
         public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args)
         {
+            switch (args.Gracz)
+            {
+                case WarcabyView.UserInteractionArgs.KolorGracza.Bialy:
+                    model.kolorZostalWybrany(Color.BlanchedAlmond);
+                    model.dostanPlansze();
+                    break;
+                case WarcabyView.UserInteractionArgs.KolorGracza.Czarny:
+                    model.kolorZostalWybrany(Color.Black);
+                    model.dostanPlansze();
+                    break;
 
-          
+            }
+           
+
+
         }
-
-        
     }
 }

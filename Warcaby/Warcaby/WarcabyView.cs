@@ -12,8 +12,9 @@ namespace Warcaby
 {
     public partial class WarcabyView : Form
     {
-       // UserInteractionArgs.KtorePole ktorePole;
-        private List<Pole> listaPol = new List<Pole>();
+
+       
+       
         private Szachownica szachownica = new Szachownica();
         public class UserInteractionArgs : EventArgs
         {
@@ -33,12 +34,12 @@ namespace Warcaby
 
 
 
-          /* public UserInteractionArgs(KtorePole typ, Point lokacja)
+           public UserInteractionArgs(KtorePole typ, Point lokacja)
             {
                 Typ = typ;
                 Lokacja = lokacja;
             }
-            */
+            
 
             public UserInteractionArgs(KolorGracza gracz, string wybor)
             {
@@ -52,11 +53,12 @@ namespace Warcaby
         public WarcabyView()
             {
                 InitializeComponent();
+                
             }
 
             private void WarcabyView_Paint(object sender, PaintEventArgs e)
             {
-            /*
+            
                             int xPos = 25;
                             int yPos = 50;
 
@@ -71,19 +73,16 @@ namespace Warcaby
                                 if (drawBlack)
                                 {
 
-
-                                    UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Czarne, new Point(xPos, yPos));
                                     System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
                                     System.Drawing.Graphics formGraphics = this.CreateGraphics();
                                     formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
                                     myBrush.Dispose();
                                     formGraphics.Dispose();
+                                    
 
                                 }
                                 else
                                 {
-
-                                    UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Biale, new Point(xPos, yPos));
                                     System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.BlanchedAlmond);
                                     System.Drawing.Graphics formGraphics = this.CreateGraphics();
                                     formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
@@ -100,30 +99,33 @@ namespace Warcaby
                                 xPos = 25;
                                 drawBlack = !drawBlack; // zeby kolejnosc w nastepnej linii pol czarne-biale byla inna, niz w poprzedniej linii 
                             }
-            */
 
+           
         }
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-           
+          
         }
-
+    
         protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ , ComboBox box)
-        {
-            if (box.SelectedIndex == 0) { return; }
+        { 
+            if (box.SelectedText == "") { return; }
             var args = new UserInteractionArgs(typ, box.SelectedText);
             UserInteraction?.Invoke(this, args);
             
         }
 
+      
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-          if(comboBox1.SelectedIndex == 1)
+          if(comboBox1.SelectedIndex == 0)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
+                
             }
-          else if(comboBox1.SelectedIndex == 2)
+          else if(comboBox1.SelectedIndex == 1)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
             }
