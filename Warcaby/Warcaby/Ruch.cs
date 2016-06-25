@@ -10,15 +10,17 @@ namespace Warcaby
     class Ruch
     {
         
-        List<Pole> pionkiDoZbicia = new List<Pole>();
-        Pole skad;
-        
-        public Ruch(Pole z)
+        private List<Pionek> pionkiDoZbicia = new List<Pionek>();
+        public Pole skad { get; private set; }
+        public Pole dokad { get; private set; }
+        public int silaBicia{ get { return pionkiDoZbicia.Count; } }
+        public Ruch(Pole z,Pole d,List<Pionek> doZbicia)
         {
-
-            //Pole skad, lista pól do wyczyszczenia oraz metoda ruch, u gracza metoda usun pionki
-            
             skad = z;
+            dokad=d;
+            //Pole skad, lista pól do wyczyszczenia oraz metoda ruch, u gracza metoda usun pionki
+
+            pionkiDoZbicia = doZbicia;
         }
         
     }
