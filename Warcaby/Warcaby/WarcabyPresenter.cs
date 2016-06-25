@@ -36,7 +36,9 @@ namespace Warcaby
 
         public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args)
         {
-
+          
         }
+
+        
     }
 }

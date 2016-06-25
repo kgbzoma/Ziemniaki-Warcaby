@@ -12,7 +12,7 @@ namespace Warcaby
 {
     public partial class WarcabyView : Form
     {
-        UserInteractionArgs.KtorePole ktorePole;
+       // UserInteractionArgs.KtorePole ktorePole;
         private List<Pole> listaPol = new List<Pole>();
         public class UserInteractionArgs : EventArgs
         {
@@ -20,7 +20,13 @@ namespace Warcaby
             {
                 Biale = 1, Czarne
             }
+
+            public enum KolorGracza
+            {
+                Bialy=1, Czarny 
+            }
             public KtorePole Typ { get; private set; }
+            public KolorGracza Gracz { get; private set; }
             public Point Lokacja { get; private set; }
             private Szachownica szachownica = new Szachownica();
 
@@ -68,9 +74,9 @@ namespace Warcaby
                         }
                         else
                         {
-                            Pole pole = new Pole(new Point(xPos, yPos), Color.White);
+                            Pole pole = new Pole(new Point(xPos, yPos), Color.BlanchedAlmond);
                             UserInteractionArgs nowePole = new UserInteractionArgs(UserInteractionArgs.KtorePole.Biale, new Point(xPos, yPos));
-                            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
+                            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.BlanchedAlmond);
                             System.Drawing.Graphics formGraphics = this.CreateGraphics();
                             formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
                             myBrush.Dispose();
@@ -101,6 +107,12 @@ namespace Warcaby
             var args = new UserInteractionArgs(typ, Lokacja);
             UserInteraction?.Invoke(this, args);
             
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          //  if(comboBox1.SelectedIndex == 1)
+                
         }
     }
     }

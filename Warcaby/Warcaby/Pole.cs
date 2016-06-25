@@ -9,6 +9,17 @@ namespace Warcaby
 {
     class Pole
     {
+        private Color kolorPola;
+        public Pole(Color JakiKolor)
+        {
+            kolorPola = JakiKolor;
+        }
+        public Color jakiKolorMaPole
+        {
+            get { return kolorPola; }
+        }
+        
+    /*
         public Pole(Point punkt,Color kolor)
         {
             PunktRysowania = punkt;
@@ -18,6 +29,6 @@ namespace Warcaby
         public Point JakiPunkt { get { return PunktRysowania; } set { PunktRysowania = value; } }
         Color kolorPola;
         public Color JakiKolor { get { return kolorPola; } }
-        
+        */
     }
 }

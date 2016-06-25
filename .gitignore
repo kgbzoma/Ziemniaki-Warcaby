@@ -45,6 +45,21 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+<<<<<<< HEAD
+*.pdb
+Warcaby/.vs/Warcaby/v14/.suo
+*.config
+Warcaby/Warcaby/App.config
+*.config
+Warcaby/Warcaby/obj/Debug/Warcaby.Properties.Resources.resources
+*.resources
+*.exe
+Warcaby/Warcaby/obj/Debug/Warcaby.csproj.FileListAbsolute.txt
+*.cache
+*.pdb
+Warcaby/Warcaby/bin/Debug/Warcaby.exe
+*.exe
+=======
 Warcaby/.vs/Warcaby/v14/.suo
 Warcaby/Warcaby/App.config
 *.config
@@ -60,3 +75,4 @@ Warcaby/Warcaby/Properties/Resources.resx
 Warcaby/Warcaby/obj/Debug/Warcaby.pdb
 *.manifest
 Warcaby/Warcaby/bin/Debug/Warcaby.exe
+>>>>>>> origin/master
