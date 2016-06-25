@@ -26,7 +26,7 @@ namespace Warcaby
             kolorPola = kolor;
         }
         private Point PunktRysowania;
-        Point JakiPunkt { get { return PunktRysowania; } }
+        public Point JakiPunkt { get { return PunktRysowania; } set { PunktRysowania = value; } }
         Color kolorPola;
         public Color JakiKolor { get { return kolorPola; } }
         */

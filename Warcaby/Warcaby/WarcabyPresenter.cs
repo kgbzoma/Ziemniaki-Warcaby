@@ -12,41 +12,33 @@ namespace Warcaby
 
         private Warcaby model;
         private WarcabyView view;
-        private  static Szachownica gameBoard = new Szachownica();
-        private Gracz player = new Gracz(Color.White, true, gameBoard);
-        private Gracz aiPlayer = new Gracz(Color.Black, false, gameBoard);
-        private Gracz graczPrzyKolejce;
+        private Szachownica gameBoard = new Szachownica();
 
 
 
-        public WarcabyPresenter (WarcabyView view)
+
+        public WarcabyPresenter(Warcaby model, WarcabyView view)
         {
-            this.view = view;
-           
+            View = view;
+            this.model = model;
+            this.gameBoard = new Szachownica();
         }
 
 
         private WarcabyView View
         {
             get { return view; }
-           /* set
+            set
             {
-                var handler = new EventHandler<WarcabyView.UserInteractionArgs>(this.HandleUserInteraction);
-
-                if (view != null)
-                {
-                    view.UserInteraction -= handler;
-                }
-                view = value;
-                view.UserInteraction += handler;
-                Refresh();
-            }*/
+                this.view = value;
+            }
         }
 
-        public WarcabyPresenter(Warcaby model, WarcabyView view)
+        public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args)
         {
-            this.model = model;
-           // View = view;
+          
         }
+
+        
     }
 }
