@@ -10,6 +10,7 @@ namespace Warcaby
     class Pionek {
         private Pole naJakimPoluPionek;
         private Gracz wlasciciel;
+        public Color kolorPionka { get { return wlasciciel.kolorGracza; } }
         public bool czyDamka { get; private set; }
         public Gracz czyjJestTenPionek { get { return wlasciciel; } }
         public Pole polePionka { get { return naJakimPoluPionek; } }

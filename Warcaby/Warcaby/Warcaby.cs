@@ -101,7 +101,7 @@ namespace Warcaby
         }
         public void ruchAI()
         {
-            graczPrzyKolejce.ruchAi(gameBoard);
+            graczPrzyKolejce.ruchAi(ref gameBoard);
             zmianaKolejki();
             graczPrzyKolejce.MozliweBicia(gameBoard);
         }
