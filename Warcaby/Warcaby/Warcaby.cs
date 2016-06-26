@@ -15,7 +15,7 @@ namespace Warcaby
         private Gracz graczPrzyKolejce;
         //private List<Ruch> listaMozliwychRuchow=new List<Ruch>();
         private Pole zaznaczone=null;
-        bool czyZaznaczonoCos = false;
+        //bool czyZaznaczonoCos = false;
         public Warcaby()
         {
            /* kolorZostalWybrany(Color.White);
@@ -80,10 +80,12 @@ namespace Warcaby
                     {
                         if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
                         {
-                            graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, gameBoard);
+                            graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, ref gameBoard);
                             zmianaKolejki();
                             graczPrzyKolejce.MozliweBicia(gameBoard);
-                            graczPrzyKolejce.ruchAi(gameBoard);
+                            graczPrzyKolejce.ruchAi(ref gameBoard);
+                           
+
                         }
                     }
                 }
@@ -92,10 +94,16 @@ namespace Warcaby
             
             return false;
         }
+        
         public bool czyKoniec()
         {
             return graczPrzyKolejce.czyToJuzJestKoniec();
         }
-
+        public void ruchAI()
+        {
+            graczPrzyKolejce.ruchAi(gameBoard);
+            zmianaKolejki();
+            graczPrzyKolejce.MozliweBicia(gameBoard);
+        }
     }
 }

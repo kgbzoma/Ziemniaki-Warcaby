@@ -82,14 +82,14 @@ namespace Warcaby
                     return true;
             return false;
         }
-        public void wykonajRuch(Pole skad, Pole dokad,Szachownica gameBoard)
+        public void wykonajRuch(Pole skad, Pole dokad,ref Szachownica gameBoard)
         {
             foreach (var a in biciaMaxymalne)
                 if (a.skad == skad && a.dokad == dokad)
                     gameBoard.wykonajRuch(a);
             
         }
-        public void ruchAi(Szachownica gameBoard)
+        public void ruchAi(ref Szachownica gameBoard)
         {
             Random rnd = new Random();
             int r = rnd.Next(biciaMaxymalne.Count);

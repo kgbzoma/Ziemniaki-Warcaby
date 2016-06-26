@@ -9,16 +9,12 @@ namespace Warcaby
 {
     class Pole
     {
-        private Color kolorPola;
+        public Color jakiKolorMaPole { get; private set; }
         public Pole(Color JakiKolor)
         {
-            kolorPola = JakiKolor;
+            jakiKolorMaPole = JakiKolor;
         }
-        public Color jakiKolorMaPole
-        {
-            get { return kolorPola; }
-        }
-        
+       
     /*
         public Pole(Point punkt,Color kolor)
         {
