@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Warcaby
 {
     public partial class WarcabyView : Form
     {
 
-       
-       
+
+        private int boardLength = 400;
         private Szachownica szachownica = new Szachownica();
         public class UserInteractionArgs : EventArgs
         {
@@ -102,12 +103,59 @@ namespace Warcaby
 
            
         }
+        
+       
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-          
-        }
-    
+            int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
+            int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
+
+            switch (posX)
+            {
+
+                case 1:
+                    posX = Convert.ToChar(posX);
+                    posX = 'A';
+                    break;
+                case 2:
+                    posX = Convert.ToChar(posX);
+                    posX = 'B';
+                    break;
+                case 3:
+                    posX = Convert.ToChar(posX);
+                    posX = 'C';
+                    break;
+                case 4:
+                    posX = Convert.ToChar(posX);
+                    posX = 'D';
+                    break;
+                case 5:
+                    posX = Convert.ToChar(posX);
+                    posX = 'E';
+                    break;
+                case 6:
+                    posX = Convert.ToChar(posX);
+                    posX = 'F';
+                    break;
+                case 7:
+                    posX = Convert.ToChar(posX);
+                    posX = 'G';
+                    break;
+                case 8:
+                    posX = Convert.ToChar(posX);
+                    posX = 'H';
+                    break;
+            }
+
+            MessageBox.Show( posX+ ", " + posY);
+
+
+
+
+
+            }
+
         protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ , ComboBox box)
         { 
             if (box.SelectedText == "") { return; }

@@ -47,9 +47,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Peru;
             this.ClientSize = new System.Drawing.Size(451, 475);
             this.Controls.Add(this.comboBox1);
+            this.MaximizeBox = false;
             this.Name = "WarcabyView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.WarcabyView_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.WarcabyView_MouseClick);
