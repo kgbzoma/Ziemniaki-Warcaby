@@ -287,6 +287,17 @@ namespace Warcaby
                     if (a.polePionka == b.polePionka)
                         wszystkiePionki.Remove(b);
         }
+
+
+        public void wczytajPionek(Gracz wlasciciel, int licznik, int j)
+        {
+            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[licznik, j], false));
+        }
+        public void wczytajDamke(Gracz wlasciciel, int licznik, int j)
+        {
+            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[licznik, j], true));
+        }
+
     }
 
 }

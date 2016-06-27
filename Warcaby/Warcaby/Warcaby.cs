@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 namespace Warcaby
 {
     class Warcaby
@@ -106,5 +107,121 @@ namespace Warcaby
             zmianaKolejki();
             graczPrzyKolejce.MozliweBicia(gameBoard);
         }
-    }
+        public void zapis()
+        {
+            FileStream plik = new FileStream("save.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter zapisuj = new StreamWriter(plik);
+            if (humanPlayer.kolorGracza == Color.Black)
+            {
+                zapisuj.Write("b");//kolor gracza czarny kompa biały
+                zapisuj.Write(Environment.NewLine);
+            }
+            else if (humanPlayer.kolorGracza == Color.White)
+            {
+                zapisuj.Write("w");
+                zapisuj.Write(Environment.NewLine);
+            }
+            for (char i = 'A'; i <= 'H'; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    if (gameBoard.czyJestPionek(gameBoard[i, j]))
+                    {
+                        if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
+                            zapisuj.Write("a"); // a to pionek człowieka q komputera
+                        else
+                            zapisuj.Write("q");
+                    }
+                    else if (gameBoard.czyJestDamka(gameBoard[i, j]))
+                    {
+                        if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
+                            zapisuj.Write("d"); // d to damka człowieka g komputera
+                        else
+                            zapisuj.Write("g");
+                    }
+                    else
+                        zapisuj.Write(" ");
+                }
+                zapisuj.Write(Environment.NewLine);
+            }
+
+            if (graczPrzyKolejce == humanPlayer)
+            {
+                zapisuj.Write("h");//tura gracza
+                zapisuj.Write(Environment.NewLine);
+            }
+            else
+            {
+                zapisuj.Write("c");//tura komputera
+                zapisuj.Write(Environment.NewLine);
+            }
+
+            zapisuj.Close();
+            plik.Close();
+        }
+
+        public void odczyt()
+        {
+
+
+            FileStream plik = new FileStream("save.txt", FileMode.Open, FileAccess.Read);
+            StreamReader czytaj = new StreamReader(plik);
+            string pierwszy, tekst;
+            pierwszy = czytaj.ReadLine().ToString();
+            if (pierwszy.Equals('b'))
+            {
+                humanPlayer = new Gracz(true, Color.Black);
+                computerPlayer = new Gracz(false, Color.White);
+            }
+            else if (pierwszy.Equals('w'))
+            {
+                humanPlayer = new Gracz(true, Color.White);
+                computerPlayer = new Gracz(false, Color.Black);
+            }
+
+            for (char i = 'A'; i <= 'H'; i++)
+            {
+                int licznik = 0;
+                for (int j = 1; j <= 8; j++)
+                {
+                    tekst = czytaj.Read().ToString();
+                    if (tekst.Equals('a'))
+                    {
+                        gameBoard.wczytajPionek(humanPlayer, licznik, j);
+                    }
+                    if (tekst.Equals('q'))
+                    {
+                        gameBoard.wczytajPionek(computerPlayer, licznik, j);
+                    }
+                    if (tekst.Equals('d'))
+                    {
+                        gameBoard.wczytajDamke(humanPlayer, licznik, j);
+                    }
+                    if (tekst.Equals('g'))
+                    {
+                        gameBoard.wczytajDamke(computerPlayer, licznik, j);
+                    }
+
+
+
+                }
+                licznik++;
+            }
+            tekst = czytaj.ReadLine().ToString();
+            if (tekst.Equals('h'))
+            {
+                graczPrzyKolejce = humanPlayer;
+            }
+            else if (tekst.Equals('c'))
+            {
+                graczPrzyKolejce = computerPlayer;
+            }
+            czytaj.Close();
+            plik.Close();
+
+        }
+
+    
+
+}
 }

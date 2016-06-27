@@ -27,6 +27,7 @@ namespace Warcaby
             View = view;
             this.model = model;
             view.UserInteraction += HandleUserInteraction;
+            view.aMouseClick += HandleMouseInteraction;
         }
 
       
@@ -56,6 +57,11 @@ namespace Warcaby
 
             }
         }
+        public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)
+        {
+            model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]);
+        }
+
         public void rysowaniePlanszy()
         {
             gameBoard = model.dostanPlansze();

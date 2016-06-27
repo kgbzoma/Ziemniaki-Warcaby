@@ -49,7 +49,20 @@ namespace Warcaby
             }
         }
 
+        public class MouseInteractionArgs : EventArgs
+        {
+
+            public char posX { get; private set; }
+            public int posY { get; private set; }
+            public MouseInteractionArgs(char PozycjaX, int PozycjaY)
+            {
+                posX = PozycjaX;
+                posY = PozycjaY;
+            }
+        }
         public event EventHandler<UserInteractionArgs> UserInteraction;
+        public event EventHandler<MouseInteractionArgs> aMouseClick;
+
 
         public WarcabyView()
         {
@@ -103,53 +116,61 @@ namespace Warcaby
             return (Image)(new Bitmap(imgToResize, size));
         }
 
+
+
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-
-            int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
-            int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
-
-            switch (posX)
+            if ((e.X < 425 && e.Y < 450) && (e.X > 25 && e.Y > 50))
             {
+                int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
+                int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
 
-                case 1:
-                    posX = Convert.ToChar(posX);
-                    posX = 'A';
-                    break;
-                case 2:
-                    posX = Convert.ToChar(posX);
-                    posX = 'B';
-                    break;
-                case 3:
-                    posX = Convert.ToChar(posX);
-                    posX = 'C';
-                    break;
-                case 4:
-                    posX = Convert.ToChar(posX);
-                    posX = 'D';
-                    break;
-                case 5:
-                    posX = Convert.ToChar(posX);
-                    posX = 'E';
-                    break;
-                case 6:
-                    posX = Convert.ToChar(posX);
-                    posX = 'F';
-                    break;
-                case 7:
-                    posX = Convert.ToChar(posX);
-                    posX = 'G';
-                    break;
-                case 8:
-                    posX = Convert.ToChar(posX);
-                    posX = 'H';
-                    break;
+                switch (posX)
+                {
+
+                    case 1:
+                        posX = Convert.ToChar(posX);
+                        posX = 'A';
+                        break;
+                    case 2:
+                        posX = Convert.ToChar(posX);
+                        posX = 'B';
+                        break;
+                    case 3:
+                        posX = Convert.ToChar(posX);
+                        posX = 'C';
+                        break;
+                    case 4:
+                        posX = Convert.ToChar(posX);
+                        posX = 'D';
+                        break;
+                    case 5:
+                        posX = Convert.ToChar(posX);
+                        posX = 'E';
+                        break;
+                    case 6:
+                        posX = Convert.ToChar(posX);
+                        posX = 'F';
+                        break;
+                    case 7:
+                        posX = Convert.ToChar(posX);
+                        posX = 'G';
+                        break;
+                    case 8:
+                        posX = Convert.ToChar(posX);
+                        posX = 'H';
+                        break;
+                }
+
+
+                var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
+                aMouseClick?.Invoke(this, arg);
+                MessageBox.Show(posX + ", " + posY);
             }
-
-            MessageBox.Show(posX + ", " + posY);
 
 
         }
+
 
         protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ, ComboBox box)
         {
