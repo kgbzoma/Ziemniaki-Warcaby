@@ -18,27 +18,15 @@ namespace Warcaby
         private bool czyWybrano = false;
         public class UserInteractionArgs : EventArgs
         {
-            public enum KtorePole
-            {
-                Dozwolone, Niedozwolone,
-            }
+           
 
             public enum KolorGracza
             {
                 Bialy = 1, Czarny
             }
-            public KtorePole Typ { get; private set; }
+            
             public KolorGracza Gracz { get; private set; }
-            public Point Lokacja { get; private set; }
             public string Wybor { get; private set; }
-
-
-
-            public UserInteractionArgs(KtorePole typ, Point lokacja)
-            {
-                Typ = typ;
-                Lokacja = lokacja;
-            }
 
 
             public UserInteractionArgs(KolorGracza gracz, string wybor)
@@ -68,7 +56,7 @@ namespace Warcaby
             InitializeComponent();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
-
+            this.Text = "Warcaby MVP";
 
         }
 
@@ -123,7 +111,7 @@ namespace Warcaby
 
         private void WarcabyView_Paint(object sender, PaintEventArgs e)
         {
-           
+            
         }
 
         public static Image resizeImage(Image imgToResize, Size size)
@@ -135,9 +123,13 @@ namespace Warcaby
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-            if(czyWybrano)
-            { if ((e.X < 425 && e.Y < 450) && (e.X > 25 && e.Y > 50))
+            
+
+            if (czyWybrano)
+            {
+                if ((e.X < 425 && e.Y < 450) && (e.X > 25 && e.Y > 50))
                 {
+                  
                     int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
                     int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
 
@@ -178,7 +170,7 @@ namespace Warcaby
                             break;
                     }
 
-
+                    
                     var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
                     aMouseClick?.Invoke(this, arg);
 
@@ -197,15 +189,7 @@ namespace Warcaby
             UserInteraction?.Invoke(this, args);
 
         }
-        protected virtual void OnUserInteraction(UserInteractionArgs.KtorePole typ, Point pole)
-        {
-            if ((pole.X < 25 || pole.Y < 50) && (pole.X > 425 || pole.Y > 450)) { return; }
-            var args = new UserInteractionArgs(typ, pole);
-            UserInteraction?.Invoke(this, args);
-
-        }
-
-
+ 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == 0)
@@ -225,7 +209,20 @@ namespace Warcaby
                 czyWybrano = true;
             }
 
+       
 
+
+        }
+        public void Koniec()
+        {
+            Refresh();
+            Label koniec = new Label();
+            koniec.Text = "Koniec gry!";
+            koniec.Location = new Point(100, 100);
+            koniec.ForeColor = System.Drawing.Color.SaddleBrown;
+            koniec.Font = new Font("MonotypeCorsiva", 16,
+                koniec.Font.Style, koniec.Font.Unit);
+            this.Controls.Add(koniec);
         }
 
         private void label1_Click(object sender, EventArgs e)
