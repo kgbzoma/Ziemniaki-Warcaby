@@ -8,7 +8,7 @@ namespace Warcaby
 {
     class Ruch
     {
-        
+
         public List<Pionek> pionkiDoZbicia { get; private set; }
         public Pole skad { get; private set; }
         public Pole dokad { get; private set; }
@@ -17,7 +17,9 @@ namespace Warcaby
         {
             skad = z;
             dokad = d;
-            pionkiDoZbicia = doZbicia;
+            List < Pionek > pomocnik= new List<Pionek>();
+            pomocnik = doZbicia;
+            pionkiDoZbicia = pomocnik;
         }
 
 
