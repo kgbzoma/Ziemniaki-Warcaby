@@ -23,6 +23,11 @@ namespace Warcaby
         public void poruszPionek(Pole dokad)
         {
             naJakimPoluPionek = dokad;
+            
+        }
+        public void awans()
+        {
+            czyDamka = true;
         }
     }
 }

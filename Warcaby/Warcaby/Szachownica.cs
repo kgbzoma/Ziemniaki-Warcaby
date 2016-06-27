@@ -277,6 +277,11 @@ namespace Warcaby
     public void wykonajRuch(Ruch coMamWykonac)
         {
             zdobaczPionkaZPola(coMamWykonac.skad).poruszPionek(coMamWykonac.dokad);
+            Tuple<int, int> para = zdobadzPozycje(coMamWykonac.dokad);
+            if (zdobaczPionkaZPola(coMamWykonac.dokad).czyjJestTenPionek.czyJestemCzlowiekiem && para.Item2 == 0)
+                zdobaczPionkaZPola(coMamWykonac.dokad).awans();
+            else if (!zdobaczPionkaZPola(coMamWykonac.dokad).czyjJestTenPionek.czyJestemCzlowiekiem && para.Item2 == 7)
+                zdobaczPionkaZPola(coMamWykonac.dokad).awans();
             foreach (var a in coMamWykonac.pionkiDoZbicia)
                 foreach (var b in wszystkiePionki)
                     if (a.polePionka == b.polePionka)
