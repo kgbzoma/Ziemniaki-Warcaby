@@ -42,7 +42,13 @@ namespace Warcaby
                 graczPrzyKolejce = humanPlayer;
             }
             gameBoard.ustawPionki(humanPlayer, computerPlayer);
+            
             graczPrzyKolejce.MozliweBicia(gameBoard);
+            if (graczPrzyKolejce == computerPlayer)
+            {
+                ruchAI();
+                zmianaKolejki();
+            }
         }
         public Gracz ktoPrzyKolejce { get { return graczPrzyKolejce; } }
         public void zmianaKolejki()
