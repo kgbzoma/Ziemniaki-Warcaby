@@ -165,7 +165,7 @@ namespace Warcaby
 
                 var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
                 aMouseClick?.Invoke(this, arg);
-                MessageBox.Show(posX + ", " + posY);
+               // MessageBox.Show(posX + ", " + posY);
             }
 
 

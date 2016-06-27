@@ -45,7 +45,12 @@ namespace Warcaby
                         if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
                             if (gameBoard.sprawdzanieRuchow(this,gameBoard[i,j]).skad!= gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]).dokad)
                                 biciaMaxymalne.Add(gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]));
-            if (!biciaMaxymalne.Any()) ;
+            foreach (var a in biciaMaxymalne)
+            {
+                Tuple<int, int> para = gameBoard.zdobadzPozycje(a.skad);
+                Tuple<int, int> para2 = gameBoard.zdobadzPozycje(a.dokad);
+               // MessageBox.Show(para.Item1 + "," + para.Item2 + "   " + para2.Item1 + "," + para2.Item2);
+                    }
             //koniec gry
         }
         public void czyszczenieRuchow()
@@ -65,7 +70,7 @@ namespace Warcaby
         }
         public void zaznaczono(Pole spr)
         {
-            foreach (var a in biciaMaxymalne)
+            foreach (var a in biciaMaxymalne.ToList())
                 if (a.skad != spr)
                     biciaMaxymalne.Remove(a);
         }
