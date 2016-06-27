@@ -65,36 +65,37 @@ namespace Warcaby
                         graczPrzyKolejce.zaznaczono(zaznaczonePole);
                         return true;
                     }
-                    else
-                        return false;
+                    
                 }
-                else if(zaznaczone!=null)
-                {
-                    if(zaznaczone==zaznaczonePole)
-                    {
-                        zaznaczone = null;
-                        graczPrzyKolejce.odznaczono(gameBoard);
-                        return false;
-                    }
-                    else
-                    {
-                        if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
-                        {
-                            graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, ref gameBoard);
-                            zmianaKolejki();
-                            graczPrzyKolejce.MozliweBicia(gameBoard);
-                            graczPrzyKolejce.ruchAi(ref gameBoard);
-                           
-
-                        }
-                    }
-                }
+                
                
             }
             
             return false;
         }
-        
+        public bool czyMogeWykonacRuch(Pole zaznaczonePole)
+        {
+            if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
+            {
+                graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, ref gameBoard);
+                zmianaKolejki();
+                graczPrzyKolejce.MozliweBicia(gameBoard);
+                graczPrzyKolejce.ruchAi(ref gameBoard);
+                return true;
+
+            }
+            return false;
+        }
+        public bool czyMogeOdznaczyc(Pole zaznaczonePole)
+        {
+            if (zaznaczone == zaznaczonePole)
+            {
+                zaznaczone = null;
+                graczPrzyKolejce.odznaczono(gameBoard);
+                return true;
+            }
+            return false;
+        }
         public bool czyKoniec()
         {
             return graczPrzyKolejce.czyToJuzJestKoniec();
