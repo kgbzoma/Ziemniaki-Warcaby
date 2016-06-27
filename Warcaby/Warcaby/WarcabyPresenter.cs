@@ -76,9 +76,12 @@ namespace Warcaby
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
             {
-                view.RysujPole(arg.posX, arg.posY, Color.AliceBlue);
+                
             }
-            
+            else if (model.czyMogeOdznaczyc(gameBoard[arg.posX, arg.posY]))
+            {
+                
+            }
             else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
             {
 
@@ -89,6 +92,7 @@ namespace Warcaby
                 model.zmianaKolejki();
                 this.rysowaniePlanszy();
             }
+            
         }
 
         public void rysowaniePlanszy()
@@ -104,6 +108,14 @@ namespace Warcaby
                         view.rysujDamke((Convert.ToInt32(x) - 65), (y-1), gameBoard.zdobaczPionkaZPola(gameBoard[x, y]).kolorPionka);
 
                 }
+        }
+
+        public void KoniecGry()
+        {
+            if(model.czyKoniec())
+            {
+                view.Koniec();
+            }
 
         }
    

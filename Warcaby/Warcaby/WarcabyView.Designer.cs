@@ -45,7 +45,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Białe",
             "Czarne"});
-            this.comboBox1.Location = new System.Drawing.Point(333, 27);
+            this.comboBox1.Location = new System.Drawing.Point(262, 27);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(106, 21);
             this.comboBox1.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Monotype Corsiva", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label1.Location = new System.Drawing.Point(117, 24);
+            this.label1.Location = new System.Drawing.Point(46, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(210, 25);
             this.label1.TabIndex = 1;
@@ -66,6 +66,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Sienna;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -88,13 +89,13 @@
             // nowaGraToolStripMenuItem
             // 
             this.nowaGraToolStripMenuItem.Name = "nowaGraToolStripMenuItem";
-            this.nowaGraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nowaGraToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.nowaGraToolStripMenuItem.Text = "Nowa Gra";
             // 
             // zapiszToolStripMenuItem
             // 
             this.zapiszToolStripMenuItem.Name = "zapiszToolStripMenuItem";
-            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.zapiszToolStripMenuItem.Text = "Zapisz";
             this.zapiszToolStripMenuItem.Visible = false;
             this.zapiszToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
@@ -102,14 +103,14 @@
             // wczytajToolStripMenuItem
             // 
             this.wczytajToolStripMenuItem.Name = "wczytajToolStripMenuItem";
-            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.wczytajToolStripMenuItem.Text = "Wczytaj";
             this.wczytajToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
             // 
             // wyjdźToolStripMenuItem
             // 
             this.wyjdźToolStripMenuItem.Name = "wyjdźToolStripMenuItem";
-            this.wyjdźToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wyjdźToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.wyjdźToolStripMenuItem.Text = "Wyjdź";
             // 
             // WarcabyView
