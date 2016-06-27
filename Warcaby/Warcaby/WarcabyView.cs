@@ -65,6 +65,7 @@ namespace Warcaby
             formGraphics.FillRectangle(myBrush, new Rectangle(25 + (xPos * 50), 50 + (yPos * 50), 50, 50));
             myBrush.Dispose();
             formGraphics.Dispose();
+            
         }
 
         public void RysujPionek(int xPos, int yPos, Color kolor)
@@ -72,13 +73,17 @@ namespace Warcaby
             if (kolor == Color.Black)
             {
                 Image newImage = Image.FromFile("unnamed.png");
-                newImage = resizeImage(newImage, new Size(40, 40));
-                
+                newImage = resizeImage(newImage, new Size(45, 45));
+                Graphics formGraphics = this.CreateGraphics();
+                formGraphics.DrawImage(newImage, 27 + (xPos * 50), 52 + (yPos * 50));
+
             }
             else if (kolor == Color.BlanchedAlmond)
             {
                 Image newImage = Image.FromFile("unnamed1.png");
-                newImage = resizeImage(newImage, new Size(40, 40));
+                newImage = resizeImage(newImage, new Size(45, 45));
+                Graphics formGraphics = this.CreateGraphics();
+                formGraphics.DrawImage(newImage, 27 + (xPos * 50), 52 + (yPos * 50));
             }
         }
 
@@ -93,7 +98,6 @@ namespace Warcaby
             
         }
 
-
         public static Image resizeImage(Image imgToResize, Size size)
         {
             return (Image)(new Bitmap(imgToResize, size));
@@ -101,6 +105,7 @@ namespace Warcaby
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
+
             int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
             int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
 
@@ -148,7 +153,7 @@ namespace Warcaby
 
         protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ, ComboBox box)
         {
-            if (box.SelectedText == "") { return; }
+            if (box.SelectedItem == "") { return; }
             var args = new UserInteractionArgs(typ, box.SelectedText);
             UserInteraction?.Invoke(this, args);
 
@@ -167,11 +172,13 @@ namespace Warcaby
             if (comboBox1.SelectedIndex == 0)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
-
+                comboBox1.Hide();
+            
             }
             else if (comboBox1.SelectedIndex == 1)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
+                comboBox1.Hide();
             }
 
 

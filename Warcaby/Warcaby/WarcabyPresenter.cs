@@ -26,9 +26,10 @@ namespace Warcaby
         { 
             View = view;
             this.model = model;
-            this.gameBoard = new Szachownica();
+            view.UserInteraction += HandleUserInteraction;
         }
 
+      
 
         private WarcabyView View
         {
@@ -36,6 +37,7 @@ namespace Warcaby
             set
             {
                 this.view = value;
+                
             }
         }
 
@@ -60,11 +62,11 @@ namespace Warcaby
             for (char x = 'A'; x <= 'H'; x++)
                 for(int y = 1;y <= 8;y++)
                 {
-                    view.RysujPole((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard[x, y].jakiKolorMaPole);
+                    view.RysujPole((Convert.ToInt32(x) - 65), (y-1), gameBoard[x, y].jakiKolorMaPole);
                     if (gameBoard.czyJestPionek(gameBoard[x, y]))
-                        view.RysujPionek((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard.zdobaczPionkaZPola(gameBoard[x,y]).kolorPionka);
+                        view.RysujPionek((Convert.ToInt32(x) - 65), (y-1), gameBoard.zdobaczPionkaZPola(gameBoard[x,y]).kolorPionka);
                     else if(gameBoard.czyJestDamka(gameBoard[x,y]))
-                        view.rysujDamke((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard.zdobaczPionkaZPola(gameBoard[x, y]).kolorPionka);
+                        view.rysujDamke((Convert.ToInt32(x) - 65), (y-1), gameBoard.zdobaczPionkaZPola(gameBoard[x, y]).kolorPionka);
 
                 }
         }
