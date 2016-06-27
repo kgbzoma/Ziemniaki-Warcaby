@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 using System.Globalization;
 
 namespace Warcaby
@@ -61,11 +62,19 @@ namespace Warcaby
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
             {
-                MessageBox.Show("można");
                 view.RysujPole(arg.posX, arg.posY, Color.AliceBlue);
             }
+            
             else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
+            {
+
                 this.rysowaniePlanszy();
+                model.zmianaKolejki();
+                Thread.Sleep((int)TimeSpan.FromSeconds(2).TotalMilliseconds);
+                model.ruchAI();
+                model.zmianaKolejki();
+                this.rysowaniePlanszy();
+            }
         }
 
         public void rysowaniePlanszy()

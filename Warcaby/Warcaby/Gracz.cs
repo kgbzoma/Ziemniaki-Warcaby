@@ -28,34 +28,40 @@ namespace Warcaby
             for (char i = 'A'; i <= 'H'; i++)
                 for (int j = 1; j <= 8; j++)
                     if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
-                        if (gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()).skad != gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()).dokad)
-                            if (gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()).silaBicia == max)
-                            {
-                                biciaMaxymalne.Add(gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()));
-                            }
-                            else if (gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()).silaBicia > max)
-                            {
-                                czyszczenieRuchow();
-                                max = gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()).silaBicia;
-                                biciaMaxymalne.Add(gameBoard.sprawdzanieBicia(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>()));
-                            }
+                    {
+                        gameBoard.sprawdzanieBiciaPionek(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
+                        for (int z = 0; z <= biciaMaxymalne.Count; z++)
+                            foreach (var a in biciaMaxymalne)
+                                if (a.silaBicia > max)
+                                {
+                                    max = a.silaBicia;
+                                }
+                                else if(a.silaBicia<max)
+                                {
+                                    biciaMaxymalne.Remove(a);
+                                }
+                    }       
+           
             if (max == 0)
                 for (char i = 'A'; i <= 'H'; i++)
                     for (int j = 1; j <= 8; j++)
                         if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
-                            if (gameBoard.sprawdzanieRuchow(this,gameBoard[i,j]).skad!= gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]).dokad)
-                                biciaMaxymalne.Add(gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]));
-            foreach (var a in biciaMaxymalne)
+                            foreach (var a in gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]))
+                                biciaMaxymalne.Add(a);
+
+          /*  foreach (var a in biciaMaxymalne)
             {
+
+
                 Tuple<int, int> para = gameBoard.zdobadzPozycje(a.skad);
                 Tuple<int, int> para2 = gameBoard.zdobadzPozycje(a.dokad);
-               // MessageBox.Show(para.Item1 + "," + para.Item2 + "   " + para2.Item1 + "," + para2.Item2);
-                    }
+                MessageBox.Show(biciaMaxymalne.Count + "  " + czyJestemCzlowiekiem + para.Item1 + "," + para.Item2 + "   " + para2.Item1 + "," + para2.Item2);
+            }*/
             //koniec gry
         }
         public void czyszczenieRuchow()
         {
-            biciaMaxymalne.Clear();
+            this.biciaMaxymalne.Clear();
         }
         public bool czyMoznaZaznaczycPionka(Pole sor)
         {
@@ -107,5 +113,6 @@ namespace Warcaby
                 return true;
             else return false;
         }
+
     }
 }
