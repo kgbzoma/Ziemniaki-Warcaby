@@ -31,7 +31,7 @@ namespace Warcaby
                     {
                         gameBoard.sprawdzanieBiciaPionek(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
                         for (int z = 0; z <= biciaMaxymalne.Count; z++)
-                            foreach (var a in biciaMaxymalne)
+                            foreach (var a in biciaMaxymalne.ToList())
                                 if (a.silaBicia > max)
                                 {
                                     max = a.silaBicia;
