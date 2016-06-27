@@ -257,6 +257,7 @@ namespace Warcaby
                 int czyWczytac = 1;
                 var wcz = new ButtonInteractionArgs(czyWczytac);
                 ButtonClick?.Invoke(this, wcz);
+            czyWybrano = true;
         }
     }
 
