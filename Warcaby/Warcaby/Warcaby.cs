@@ -116,116 +116,130 @@ namespace Warcaby
         }
         public void zapis()
         {
-            FileStream plik = new FileStream("save.txt", FileMode.Create, FileAccess.Write);
-            StreamWriter zapisuj = new StreamWriter(plik);
-            if (humanPlayer.kolorGracza == Color.Black)
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.InitialDirectory = Application.StartupPath;
+            DialogResult czyok = saveFileDialog1.ShowDialog();
+            if (czyok == DialogResult.OK)
             {
-                zapisuj.Write("b");//kolor gracza czarny kompa biały
-                zapisuj.Write(Environment.NewLine);
-            }
-            else if (humanPlayer.kolorGracza == Color.BlanchedAlmond)
-            {
-                zapisuj.Write("w");
-                zapisuj.Write(Environment.NewLine);
-            }
-            for (char i = 'A'; i <= 'H'; i++)
-            {
+                FileStream plik = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
+                StreamWriter zapisuj = new StreamWriter(plik);
+                if (humanPlayer.kolorGracza == Color.Black)
+                {
+                    zapisuj.Write("b");//kolor gracza czarny kompa biały
+                    zapisuj.Write(Environment.NewLine);
+                }
+                else if (humanPlayer.kolorGracza == Color.BlanchedAlmond)
+                {
+                    zapisuj.Write("w");
+                    zapisuj.Write(Environment.NewLine);
+                }
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (gameBoard.czyJestPionek(gameBoard[i, j]))
+                    for (char i = 'A'; i <= 'H'; i++)
                     {
-                        if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
-                            zapisuj.Write("a"); // a to pionek człowieka q komputera
+                        if (gameBoard.czyJestPionek(gameBoard[i, j]))
+                        {
+                            if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
+                                zapisuj.Write('a'); // a to pionek człowieka q komputera
+                            else
+                                zapisuj.Write('q');
+                        }
+                        else if (gameBoard.czyJestDamka(gameBoard[i, j]))
+                        {
+                            if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
+                                zapisuj.Write("d"); // d to damka człowieka g komputera
+                            else
+                                zapisuj.Write("g");
+                        }
                         else
-                            zapisuj.Write("q");
+                            zapisuj.Write(" ");
                     }
-                    else if (gameBoard.czyJestDamka(gameBoard[i, j]))
-                    {
-                        if (gameBoard.czyJestPionekTegoPana(humanPlayer, gameBoard[i, j]))
-                            zapisuj.Write("d"); // d to damka człowieka g komputera
-                        else
-                            zapisuj.Write("g");
-                    }
-                    else
-                        zapisuj.Write(" ");
+                    zapisuj.Write(Environment.NewLine);
                 }
-                zapisuj.Write(Environment.NewLine);
-            }
 
-            if (graczPrzyKolejce == humanPlayer)
-            {
-                zapisuj.Write("h");//tura gracza
-                zapisuj.Write(Environment.NewLine);
-            }
-            else
-            {
-                zapisuj.Write("c");//tura komputera
-                zapisuj.Write(Environment.NewLine);
-            }
+                if (graczPrzyKolejce == humanPlayer)
+                {
+                    zapisuj.Write("h");//tura gracza
+                    zapisuj.Write(Environment.NewLine);
+                }
+                else
+                {
+                    zapisuj.Write("c");//tura komputera
+                    zapisuj.Write(Environment.NewLine);
+                }
 
-            zapisuj.Close();
-            plik.Close();
+                zapisuj.Close();
+                plik.Close();
+            }
         }
 
         public void odczyt()
         {
-
-
-            FileStream plik = new FileStream("save.txt", FileMode.Open, FileAccess.Read);
-            StreamReader czytaj = new StreamReader(plik);
-            string pierwszy, tekst;
-            pierwszy = czytaj.ReadLine().ToString();
-            if (pierwszy.Equals('b'))
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.InitialDirectory = Application.StartupPath;
+            DialogResult czyok=openFileDialog1.ShowDialog();
+            if (czyok == DialogResult.OK)
             {
-                humanPlayer = new Gracz(true, Color.Black);
-                computerPlayer = new Gracz(false, Color.BlanchedAlmond);
-            }
-            else if (pierwszy.Equals('w'))
-            {
-                humanPlayer = new Gracz(true, Color.BlanchedAlmond);
-                computerPlayer = new Gracz(false, Color.Black);
-            }
-
-            for (char i = 'A'; i <= 'H'; i++)
-            {
-                int licznik = 0;
-                for (int j = 1; j <= 8; j++)
+                string plik = openFileDialog1.FileName;
+                StreamReader czytaj = new StreamReader(plik);
+                gameBoard.wyczysc();
+                string pierwszy, tekst;
+                pierwszy = czytaj.ReadLine();
+                if (pierwszy != null)
                 {
-                    tekst = czytaj.Read().ToString();
-                    if (tekst.Equals('a'))
+                    if (pierwszy.Equals("b"))
                     {
-                        gameBoard.wczytajPionek(humanPlayer, licznik, j);
+                        humanPlayer = new Gracz(true, Color.Black);
+                        computerPlayer = new Gracz(false, Color.BlanchedAlmond);
                     }
-                    if (tekst.Equals('q'))
+                    else if (pierwszy.Equals("w"))
                     {
-                        gameBoard.wczytajPionek(computerPlayer, licznik, j);
+                        humanPlayer = new Gracz(true, Color.BlanchedAlmond);
+                        computerPlayer = new Gracz(false, Color.Black);
                     }
-                    if (tekst.Equals('d'))
+                    for (int j = 0; j < 8; j++)
                     {
-                        gameBoard.wczytajDamke(humanPlayer, licznik, j);
+                        for (int i = 0; i < 10; i++)
+                        {
+                            int sczytane = czytaj.Read();
+                            if (sczytane.Equals('a'))
+                            {
+                                gameBoard.wczytajPionek(humanPlayer, i, j);
+                            }
+                            if (sczytane.Equals('q'))
+                            {
+                                gameBoard.wczytajPionek(computerPlayer, i, j);
+                            }
+                            if (sczytane.Equals('d'))
+                            {
+                                gameBoard.wczytajDamke(humanPlayer, i, j);
+                            }
+                            if (sczytane.Equals('g'))
+                            {
+                                gameBoard.wczytajDamke(computerPlayer, i, j);
+                            }
+                        }
                     }
-                    if (tekst.Equals('g'))
+                    tekst = czytaj.ReadLine();
+                    if (tekst != null)
                     {
-                        gameBoard.wczytajDamke(computerPlayer, licznik, j);
+                        if (tekst.Equals("h"))
+                        {
+                            graczPrzyKolejce = humanPlayer;
+                            graczPrzyKolejce.MozliweBicia(gameBoard);
+                        }
+                        else if (tekst.Equals("c"))
+                        {
+                            graczPrzyKolejce = computerPlayer;
+                                ruchAI();
+                                zmianaKolejki();
+                        }
                     }
-
-
-
+                    czytaj.Close();
                 }
-                licznik++;
             }
-            tekst = czytaj.ReadLine().ToString();
-            if (tekst.Equals('h'))
-            {
-                graczPrzyKolejce = humanPlayer;
-            }
-            else if (tekst.Equals('c'))
-            {
-                graczPrzyKolejce = computerPlayer;
-            }
-            czytaj.Close();
-            plik.Close();
-
         }
         public void RuchaKomputera()
         {

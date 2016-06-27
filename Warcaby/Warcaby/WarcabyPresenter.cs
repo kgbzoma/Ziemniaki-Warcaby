@@ -29,6 +29,7 @@ namespace Warcaby
             this.model = model;
             view.UserInteraction += HandleUserInteraction;
             view.aMouseClick += HandleMouseInteraction;
+            view.ButtonClick += HandleButtonInteraction;
         }
 
       
@@ -44,7 +45,7 @@ namespace Warcaby
         }
 
         public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args)
-        {
+        { 
             switch (args.Gracz)
             {
                 case WarcabyView.UserInteractionArgs.KolorGracza.Bialy:
@@ -56,6 +57,19 @@ namespace Warcaby
                     rysowaniePlanszy();
                     break;
 
+            }
+        }
+        public void HandleButtonInteraction(object sender, WarcabyView.ButtonInteractionArgs zap)
+        {
+            if (zap.czyZapis)
+            {
+                model.zapis();
+            }
+            if(zap.czyWczytaj==1)
+            {
+               
+                model.odczyt();
+                rysowaniePlanszy();
             }
         }
         public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)

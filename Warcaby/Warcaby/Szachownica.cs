@@ -292,15 +292,18 @@ namespace Warcaby
         }
 
 
-        public void wczytajPionek(Gracz wlasciciel, int licznik, int j)
+        public void wczytajPionek(Gracz wlasciciel, int i, int j)
         {
-            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[licznik, j], false));
+            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[i,j], false));
         }
-        public void wczytajDamke(Gracz wlasciciel, int licznik, int j)
+        public void wczytajDamke(Gracz wlasciciel, int i, int j)
         {
-            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[licznik, j], true));
+            wszystkiePionki.Add(new Pionek(wlasciciel, plansza[i,j], true));
         }
-
+        public void wyczysc()
+        {
+            wszystkiePionki.Clear();
+        }
     }
 
 }

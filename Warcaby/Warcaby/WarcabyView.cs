@@ -33,7 +33,6 @@ namespace Warcaby
             public string Wybor { get; private set; }
 
 
-
             public UserInteractionArgs(KtorePole typ, Point lokacja)
             {
                 Typ = typ;
@@ -46,8 +45,21 @@ namespace Warcaby
                 Gracz = gracz;
                 Wybor = wybor;
             }
+            
         }
-
+        public class ButtonInteractionArgs: EventArgs
+        {
+            public bool czyZapis { get; private set; }
+            public int czyWczytaj { get; private set; }
+            public ButtonInteractionArgs(bool czyZapisac)
+            {
+                czyZapis = czyZapisac;
+            }
+            public ButtonInteractionArgs(int czyWczytac)
+            {
+                czyWczytaj = czyWczytac;
+            }
+        }
         public class MouseInteractionArgs : EventArgs
         {
 
@@ -61,7 +73,7 @@ namespace Warcaby
         }
         public event EventHandler<UserInteractionArgs> UserInteraction;
         public event EventHandler<MouseInteractionArgs> aMouseClick;
-
+        public event EventHandler<ButtonInteractionArgs> ButtonClick;
 
         public WarcabyView()
         {
@@ -177,11 +189,10 @@ namespace Warcaby
                             posX = 'H';
                             break;
                     }
-
+                    MessageBox.Show(posX + ", " + posY);
 
                     var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
                     aMouseClick?.Invoke(this, arg);
-
                 }
             }
 
@@ -213,7 +224,7 @@ namespace Warcaby
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
                    comboBox1.Hide();
                    label1.Hide();
-                
+                zapiszToolStripMenuItem.Visible = true;
                 czyWybrano = true;
             
             }
@@ -222,6 +233,7 @@ namespace Warcaby
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
                 comboBox1.Hide();
                 label1.Hide();
+                zapiszToolStripMenuItem.Visible = true;
                 czyWybrano = true;
             }
 
@@ -231,6 +243,22 @@ namespace Warcaby
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool czyZapisac = true;
+            var zap = new ButtonInteractionArgs(czyZapisac);
+            ButtonClick?.Invoke(this, zap);  
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label1.Hide();
+            comboBox1.Hide();
+                int czyWczytac = 1;
+                var wcz = new ButtonInteractionArgs(czyWczytac);
+                ButtonClick?.Invoke(this, wcz);
         }
     }
 
