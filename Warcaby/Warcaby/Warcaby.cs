@@ -79,9 +79,10 @@ namespace Warcaby
             if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
             {
                 graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, ref gameBoard);
-                zmianaKolejki();
-                graczPrzyKolejce.MozliweBicia(gameBoard);
-                graczPrzyKolejce.ruchAi(ref gameBoard);
+                zaznaczone = null;
+                //zmianaKolejki();               
+                //graczPrzyKolejce.MozliweBicia(gameBoard);
+                
                 return true;
 
             }
@@ -104,8 +105,8 @@ namespace Warcaby
         public void ruchAI()
         {
             graczPrzyKolejce.ruchAi(ref gameBoard);
-            zmianaKolejki();
-            graczPrzyKolejce.MozliweBicia(gameBoard);
+            //zmianaKolejki();
+            //graczPrzyKolejce.MozliweBicia(gameBoard);
         }
         public void zapis()
         {
@@ -220,7 +221,11 @@ namespace Warcaby
             plik.Close();
 
         }
-
+        public void RuchaKomputera()
+        {
+            graczPrzyKolejce.ruchAi(ref gameBoard);
+            //zmianaKolejki();
+        }
     
 
 }

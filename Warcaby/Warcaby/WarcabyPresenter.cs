@@ -60,9 +60,17 @@ namespace Warcaby
         public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
+            {
                 this.rysowaniePlanszy();
-            else if(model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
+            }
+            else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
+            {
                 this.rysowaniePlanszy();
+                model.zmianaKolejki();
+                model.ruchAI();
+                model.zmianaKolejki();
+                this.rysowaniePlanszy();
+            }
         }
 
         public void rysowaniePlanszy()
