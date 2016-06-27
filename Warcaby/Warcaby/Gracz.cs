@@ -29,8 +29,10 @@ namespace Warcaby
                 for (int j = 1; j <= 8; j++)
                     if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
                     {
-                        gameBoard.sprawdzanieBiciaPionek(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
-                        for (int z = 0; z <= biciaMaxymalne.Count; z++)
+                        if (gameBoard.zdobaczPionkaZPola(gameBoard[i, j]).czyDamka)
+                            gameBoard.bicieDamka(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
+                        else gameBoard.sprawdzanieBiciaPionek(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
+                        for (int z = 0; z <= 2; z++)
                             foreach (var a in biciaMaxymalne.ToList())
                                 if (a.silaBicia > max)
                                 {
@@ -49,14 +51,14 @@ namespace Warcaby
                             foreach (var a in gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]))
                                 biciaMaxymalne.Add(a);
 
-          /*  foreach (var a in biciaMaxymalne)
+           foreach (var a in biciaMaxymalne)
             {
 
 
                 Tuple<int, int> para = gameBoard.zdobadzPozycje(a.skad);
                 Tuple<int, int> para2 = gameBoard.zdobadzPozycje(a.dokad);
-                MessageBox.Show(biciaMaxymalne.Count + "  " + czyJestemCzlowiekiem + para.Item1 + "," + para.Item2 + "   " + para2.Item1 + "," + para2.Item2);
-            }*/
+                //MessageBox.Show(biciaMaxymalne.Count + "  " + czyJestemCzlowiekiem + para.Item1 + "," + para.Item2 + "   " + para2.Item1 + "," + para2.Item2 + " Sila: "+a.silaBicia);
+            }
             //koniec gry
         }
         public void czyszczenieRuchow()
