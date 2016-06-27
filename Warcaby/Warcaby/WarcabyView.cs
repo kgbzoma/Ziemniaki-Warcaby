@@ -15,8 +15,7 @@ namespace Warcaby
     {
 
 
-        private int boardLength = 400;
-        private WarcabyPresenter presenter;
+        private bool czyWybrano = false;
         public class UserInteractionArgs : EventArgs
         {
             public enum KtorePole
@@ -67,6 +66,9 @@ namespace Warcaby
         public WarcabyView()
         {
             InitializeComponent();
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+
 
         }
 
@@ -102,13 +104,26 @@ namespace Warcaby
 
         public void rysujDamke(int xPos, int yPos, Color kolor)
         {
-            //  if(czyJest)
-            //   ... to samo ale musze zrobic obrazki
+            if (kolor == Color.Black)
+            {
+                Image newImage = Image.FromFile("damkaCzarna.png");
+                newImage = resizeImage(newImage, new Size(45, 45));
+                Graphics formGraphics = this.CreateGraphics();
+                formGraphics.DrawImage(newImage, 27 + (xPos * 50), 52 + (yPos * 50));
+
+            }
+            else if (kolor == Color.BlanchedAlmond)
+            {
+                Image newImage = Image.FromFile("damkaBiala.png");
+                newImage = resizeImage(newImage, new Size(45, 45));
+                Graphics formGraphics = this.CreateGraphics();
+                formGraphics.DrawImage(newImage, 27 + (xPos * 50), 52 + (yPos * 50));
+            }
         }
 
         private void WarcabyView_Paint(object sender, PaintEventArgs e)
         {
-            
+           
         }
 
         public static Image resizeImage(Image imgToResize, Size size)
@@ -120,52 +135,54 @@ namespace Warcaby
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
-            if ((e.X < 425 && e.Y < 450) && (e.X > 25 && e.Y > 50))
-            {
-                int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
-                int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
-
-                switch (posX)
+            if(czyWybrano)
+            { if ((e.X < 425 && e.Y < 450) && (e.X > 25 && e.Y > 50))
                 {
+                    int posX = Decimal.ToInt32(Math.Floor((e.X + 25) / 50m));
+                    int posY = Decimal.ToInt32(Math.Floor((e.Y) / 50m));
 
-                    case 1:
-                        posX = Convert.ToChar(posX);
-                        posX = 'A';
-                        break;
-                    case 2:
-                        posX = Convert.ToChar(posX);
-                        posX = 'B';
-                        break;
-                    case 3:
-                        posX = Convert.ToChar(posX);
-                        posX = 'C';
-                        break;
-                    case 4:
-                        posX = Convert.ToChar(posX);
-                        posX = 'D';
-                        break;
-                    case 5:
-                        posX = Convert.ToChar(posX);
-                        posX = 'E';
-                        break;
-                    case 6:
-                        posX = Convert.ToChar(posX);
-                        posX = 'F';
-                        break;
-                    case 7:
-                        posX = Convert.ToChar(posX);
-                        posX = 'G';
-                        break;
-                    case 8:
-                        posX = Convert.ToChar(posX);
-                        posX = 'H';
-                        break;
+                    switch (posX)
+                    {
+
+                        case 1:
+                            posX = Convert.ToChar(posX);
+                            posX = 'A';
+                            break;
+                        case 2:
+                            posX = Convert.ToChar(posX);
+                            posX = 'B';
+                            break;
+                        case 3:
+                            posX = Convert.ToChar(posX);
+                            posX = 'C';
+                            break;
+                        case 4:
+                            posX = Convert.ToChar(posX);
+                            posX = 'D';
+                            break;
+                        case 5:
+                            posX = Convert.ToChar(posX);
+                            posX = 'E';
+                            break;
+                        case 6:
+                            posX = Convert.ToChar(posX);
+                            posX = 'F';
+                            break;
+                        case 7:
+                            posX = Convert.ToChar(posX);
+                            posX = 'G';
+                            break;
+                        case 8:
+                            posX = Convert.ToChar(posX);
+                            posX = 'H';
+                            break;
+                    }
+
+
+                    var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
+                    aMouseClick?.Invoke(this, arg);
+
                 }
-
-
-                var arg = new MouseInteractionArgs(Convert.ToChar(posX), posY);
-                aMouseClick?.Invoke(this, arg);
-               // MessageBox.Show(posX + ", " + posY);
             }
 
 
@@ -174,7 +191,8 @@ namespace Warcaby
 
         protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ, ComboBox box)
         {
-            if (box.SelectedItem == "") { return; }
+            
+            if (box.SelectedItem == null) { return; }
             var args = new UserInteractionArgs(typ, box.SelectedText);
             UserInteraction?.Invoke(this, args);
 
@@ -193,18 +211,27 @@ namespace Warcaby
             if (comboBox1.SelectedIndex == 0)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
-                comboBox1.Hide();
+                   comboBox1.Hide();
+                   label1.Hide();
+                
+                czyWybrano = true;
             
             }
             else if (comboBox1.SelectedIndex == 1)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
                 comboBox1.Hide();
+                label1.Hide();
+                czyWybrano = true;
             }
 
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

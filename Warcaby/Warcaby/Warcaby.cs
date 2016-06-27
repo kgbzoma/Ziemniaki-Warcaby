@@ -32,7 +32,7 @@ namespace Warcaby
             if(wybranyKolor==Color.Black)
             {
                 humanPlayer = new Gracz(true, wybranyKolor);
-                computerPlayer = new Gracz(false, Color.White);
+                computerPlayer = new Gracz(false, Color.BlanchedAlmond);
                 graczPrzyKolejce = computerPlayer;
             }
             else
@@ -116,7 +116,7 @@ namespace Warcaby
                 zapisuj.Write("b");//kolor gracza czarny kompa biały
                 zapisuj.Write(Environment.NewLine);
             }
-            else if (humanPlayer.kolorGracza == Color.White)
+            else if (humanPlayer.kolorGracza == Color.BlanchedAlmond)
             {
                 zapisuj.Write("w");
                 zapisuj.Write(Environment.NewLine);
@@ -171,11 +171,11 @@ namespace Warcaby
             if (pierwszy.Equals('b'))
             {
                 humanPlayer = new Gracz(true, Color.Black);
-                computerPlayer = new Gracz(false, Color.White);
+                computerPlayer = new Gracz(false, Color.BlanchedAlmond);
             }
             else if (pierwszy.Equals('w'))
             {
-                humanPlayer = new Gracz(true, Color.White);
+                humanPlayer = new Gracz(true, Color.BlanchedAlmond);
                 computerPlayer = new Gracz(false, Color.Black);
             }
 
