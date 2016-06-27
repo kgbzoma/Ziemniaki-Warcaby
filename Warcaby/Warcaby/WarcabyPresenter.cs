@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
+using System.Windows.Forms;
+using System.Globalization;
 
 namespace Warcaby
 {
@@ -12,13 +16,14 @@ namespace Warcaby
 
         private Warcaby model;
         private WarcabyView view;
-        private Szachownica gameBoard = new Szachownica();
+        private Szachownica gameBoard;
 
 
+        public WarcabyPresenter() { }
 
 
         public WarcabyPresenter(Warcaby model, WarcabyView view)
-        {
+        { 
             View = view;
             this.model = model;
             this.gameBoard = new Szachownica();
@@ -40,17 +45,31 @@ namespace Warcaby
             {
                 case WarcabyView.UserInteractionArgs.KolorGracza.Bialy:
                     model.kolorZostalWybrany(Color.BlanchedAlmond);
-                    model.dostanPlansze();
+                    rysowaniePlanszy();
                     break;
                 case WarcabyView.UserInteractionArgs.KolorGracza.Czarny:
                     model.kolorZostalWybrany(Color.Black);
-                    model.dostanPlansze();
+                    rysowaniePlanszy();
                     break;
 
             }
-           
+        }
+        public void rysowaniePlanszy()
+        {
+            gameBoard = model.dostanPlansze();
+            for (char x = 'A'; x <= 'H'; x++)
+                for(int y = 1;y <= 8;y++)
+                {
+                    view.RysujPole((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard[x, y].jakiKolorMaPole);
+                    if (gameBoard.czyJestPionek(gameBoard[x, y]))
+                        view.RysujPionek((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard.zdobaczPionkaZPola(gameBoard[x,y]).kolorPionka);
+                    else if(gameBoard.czyJestDamka(gameBoard[x,y]))
+                        view.rysujDamke((Convert.ToInt32(x) - 65)*25, (y-1)*50, gameBoard.zdobaczPionkaZPola(gameBoard[x, y]).kolorPionka);
+
+                }
+        }
 
 
         }
     }
-}
+

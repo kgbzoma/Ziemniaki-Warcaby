@@ -16,17 +16,17 @@ namespace Warcaby
 
 
         private int boardLength = 400;
-        private Szachownica szachownica = new Szachownica();
+        private WarcabyPresenter presenter;
         public class UserInteractionArgs : EventArgs
         {
             public enum KtorePole
             {
-                Biale = 1, Czarne
+                Dozwolone, Niedozwolone,
             }
 
             public enum KolorGracza
             {
-                Bialy=1, Czarny 
+                Bialy = 1, Czarny
             }
             public KtorePole Typ { get; private set; }
             public KolorGracza Gracz { get; private set; }
@@ -35,12 +35,12 @@ namespace Warcaby
 
 
 
-           public UserInteractionArgs(KtorePole typ, Point lokacja)
+            public UserInteractionArgs(KtorePole typ, Point lokacja)
             {
                 Typ = typ;
                 Lokacja = lokacja;
             }
-            
+
 
             public UserInteractionArgs(KolorGracza gracz, string wybor)
             {
@@ -52,59 +52,52 @@ namespace Warcaby
         public event EventHandler<UserInteractionArgs> UserInteraction;
 
         public WarcabyView()
+        {
+            InitializeComponent();
+
+        }
+
+        public void RysujPole(int xPos, int yPos, Color kolor)
+        {
+            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(kolor);
+            System.Drawing.Graphics formGraphics;
+            formGraphics = this.CreateGraphics();
+            formGraphics.FillRectangle(myBrush, new Rectangle(25 + (xPos * 50), 50 + (yPos * 50), 50, 50));
+            myBrush.Dispose();
+            formGraphics.Dispose();
+        }
+
+        public void RysujPionek(int xPos, int yPos, Color kolor)
+        {
+            if (kolor == Color.Black)
             {
-                InitializeComponent();
+                Image newImage = Image.FromFile("unnamed.png");
+                newImage = resizeImage(newImage, new Size(40, 40));
                 
             }
-
-            private void WarcabyView_Paint(object sender, PaintEventArgs e)
+            else if (kolor == Color.BlanchedAlmond)
             {
-            
-                            int xPos = 25;
-                            int yPos = 50;
-
-                            bool drawBlack = true;
-
-
-
-                            for (int x = 0; x < 8; x++)
-                            {
-                                for (int y = 0; y < 8; y++)
-                                {
-                                if (drawBlack)
-                                {
-
-                                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-                                    System.Drawing.Graphics formGraphics = this.CreateGraphics();
-                                    formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
-                                    myBrush.Dispose();
-                                    formGraphics.Dispose();
-                                    
-
-                                }
-                                else
-                                {
-                                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.BlanchedAlmond);
-                                    System.Drawing.Graphics formGraphics = this.CreateGraphics();
-                                    formGraphics.FillRectangle(myBrush, new Rectangle(xPos, yPos, 50, 50));
-                                    myBrush.Dispose();
-                                    formGraphics.Dispose();
-
-                                }
-
-                                    xPos += 50;
-                                    drawBlack = !drawBlack;
-                                }
-
-                                yPos += 50;
-                                xPos = 25;
-                                drawBlack = !drawBlack; // zeby kolejnosc w nastepnej linii pol czarne-biale byla inna, niz w poprzedniej linii 
-                            }
-
-           
+                Image newImage = Image.FromFile("unnamed1.png");
+                newImage = resizeImage(newImage, new Size(40, 40));
+            }
         }
-        
-       
+
+        public void rysujDamke(int xPos, int yPos, Color kolor)
+        {
+            //  if(czyJest)
+            //   ... to samo ale musze zrobic obrazki
+        }
+
+        private void WarcabyView_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+
+        public static Image resizeImage(Image imgToResize, Size size)
+        {
+            return (Image)(new Bitmap(imgToResize, size));
+        }
 
         private void WarcabyView_MouseClick(object sender, MouseEventArgs e)
         {
@@ -148,38 +141,42 @@ namespace Warcaby
                     break;
             }
 
-            MessageBox.Show( posX+ ", " + posY);
+            MessageBox.Show(posX + ", " + posY);
 
 
+        }
 
-
-
-            }
-
-        protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ , ComboBox box)
-        { 
+        protected virtual void OnUserInteraction(UserInteractionArgs.KolorGracza typ, ComboBox box)
+        {
             if (box.SelectedText == "") { return; }
             var args = new UserInteractionArgs(typ, box.SelectedText);
             UserInteraction?.Invoke(this, args);
-            
+
+        }
+        protected virtual void OnUserInteraction(UserInteractionArgs.KtorePole typ, Point pole)
+        {
+            if ((pole.X < 25 || pole.Y < 50) && (pole.X > 425 || pole.Y > 450)) { return; }
+            var args = new UserInteractionArgs(typ, pole);
+            UserInteraction?.Invoke(this, args);
+
         }
 
-      
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-          if(comboBox1.SelectedIndex == 0)
+            if (comboBox1.SelectedIndex == 0)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Bialy, sender as ComboBox);
-                
+
             }
-          else if(comboBox1.SelectedIndex == 1)
+            else if (comboBox1.SelectedIndex == 1)
             {
                 OnUserInteraction(UserInteractionArgs.KolorGracza.Czarny, sender as ComboBox);
             }
 
-                
+
         }
-    }
+
     }
 
+}

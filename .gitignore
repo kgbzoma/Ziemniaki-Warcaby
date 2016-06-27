@@ -80,3 +80,5 @@ Warcaby/Warcaby/bin/Debug/Warcaby.pdb
 *.exe
 *.exe
 Warcaby/Warcaby/bin/Debug/Warcaby.pdb
+*.exe
+*.pdb
