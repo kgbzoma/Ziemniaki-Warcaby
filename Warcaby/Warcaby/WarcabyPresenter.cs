@@ -67,22 +67,52 @@ namespace Warcaby
             }
             if(zap.czyWczytaj==1)
             {
-               
                 model.odczyt();
                 rysowaniePlanszy();
             }
+
+            if(zap.CzyKoniec=='t')
+            {
+                Application.Exit();
+            }
+            if(zap.NowaGra == "zaczynamy")
+            {
+                view.nowaGra();
+            }
         }
+
+        
         public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)
         {
-            if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
-            {
-                
-            }
-            else if (model.czyMogeOdznaczyc(gameBoard[arg.posX, arg.posY]))
-            {
-                
-            }
-            else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
+           
+                if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
+                {
+                    view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.GreenYellow);
+                    if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
+                        view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                    else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
+                        view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                }
+                else if (model.czyMogeOdznaczyc(gameBoard[arg.posX, arg.posY]))
+                {
+                    view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                    if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
+                        view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                    else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
+                        view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                }
+                else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
+                {
+
+                    this.rysowaniePlanszy();
+                    model.zmianaKolejki();
+                    Thread.Sleep((int)TimeSpan.FromSeconds(2).TotalMilliseconds);
+                    model.ruchAI();
+                    model.zmianaKolejki();
+                    this.rysowaniePlanszy();
+
+                }
+                else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
             {
 
                 this.rysowaniePlanszy();

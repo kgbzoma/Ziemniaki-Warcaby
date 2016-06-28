@@ -40,6 +40,8 @@ namespace Warcaby
         {
             public bool czyZapis { get; private set; }
             public int czyWczytaj { get; private set; }
+            public char CzyKoniec { get; private set; }
+            public string NowaGra { get; private set; }
             public ButtonInteractionArgs(bool czyZapisac)
             {
                 czyZapis = czyZapisac;
@@ -48,6 +50,15 @@ namespace Warcaby
             {
                 czyWczytaj = czyWczytac;
             }
+            public ButtonInteractionArgs(char czyKoniec)
+            {
+                CzyKoniec = czyKoniec;
+            }
+            public ButtonInteractionArgs(string nowaGra)
+            {
+                NowaGra = nowaGra;
+            }
+
         }
         public class MouseInteractionArgs : EventArgs
         {
@@ -120,6 +131,17 @@ namespace Warcaby
                 Graphics formGraphics = this.CreateGraphics();
                 formGraphics.DrawImage(newImage, 27 + (xPos * 50), 52 + (yPos * 50));
             }
+        }
+
+        
+
+        public void nowaGra()
+        {
+            Refresh();
+            comboBox1.Visible = true;
+            label1.Visible = true;
+            menuStrip1.Visible = true;
+            comboBox1.SelectedText = "";
         }
 
         private void WarcabyView_Paint(object sender, PaintEventArgs e)
@@ -210,6 +232,7 @@ namespace Warcaby
                    comboBox1.Hide();
                    label1.Hide();
                 zapiszToolStripMenuItem.Visible = true;
+                nowaGraToolStripMenuItem.Visible = true;
                 czyWybrano = true;
             
             }
@@ -219,12 +242,9 @@ namespace Warcaby
                 comboBox1.Hide();
                 label1.Hide();
                 zapiszToolStripMenuItem.Visible = true;
+                nowaGraToolStripMenuItem.Visible = true;
                 czyWybrano = true;
             }
-
-       
-
-
         }
         public void Koniec()
         {
@@ -258,6 +278,19 @@ namespace Warcaby
                 var wcz = new ButtonInteractionArgs(czyWczytac);
                 ButtonClick?.Invoke(this, wcz);
             czyWybrano = true;
+        }
+         private void nowaGraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string nowaGra = "zaczynamy";
+            var now = new ButtonInteractionArgs(nowaGra);
+            ButtonClick?.Invoke(this, now);
+        }
+
+        private void wyjdźToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            char czyKoniec = 't';
+            var kon = new ButtonInteractionArgs(czyKoniec);
+            ButtonClick?.Invoke(this, kon);
         }
     }
 
