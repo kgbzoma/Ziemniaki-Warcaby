@@ -20,7 +20,7 @@ namespace Warcaby
         private Szachownica gameBoard;
 
 
-        public WarcabyPresenter(Warcaby model, WarcabyView view)
+        public WarcabyPresenter(Warcaby model, WarcabyView view) //konstruktor prezentera umożliwiający komunikacje z widokiem i modelem
         { 
             View = view;
             this.model = model;
@@ -41,7 +41,7 @@ namespace Warcaby
             }
         }
 
-        public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args)
+        public void HandleUserInteraction(object sender, WarcabyView.UserInteractionArgs args) //metoda obsługująca zdarzenia interakcji z użytkownikiem
         { 
             switch (args.Gracz)
             {
@@ -56,7 +56,7 @@ namespace Warcaby
 
             }
         }
-        public void HandleButtonInteraction(object sender, WarcabyView.ButtonInteractionArgs zap)
+        public void HandleButtonInteraction(object sender, WarcabyView.ButtonInteractionArgs zap) //metoda obsługująca zdarzenia wciśnięcia przycisku
         {
             if (zap.czyZapis)
             {
@@ -79,7 +79,7 @@ namespace Warcaby
             }
 
         }
-        public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)
+        public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg) //metoda obsługująca zdarzenia kliknięcia myszy
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
             {
@@ -116,7 +116,7 @@ namespace Warcaby
             
         }
 
-        public void rysowaniePlanszy()
+        public void rysowaniePlanszy() //metoda odrysowująca szachownice
         {
             gameBoard = model.dostanPlansze();
             for (char x = 'A'; x <= 'H'; x++)
@@ -131,7 +131,7 @@ namespace Warcaby
                 }
         }
 
-        public void KoniecGry()
+        public void KoniecGry() //metoda wywołująca obsługę końca gry
         {
             if(model.czyKoniec())
             {

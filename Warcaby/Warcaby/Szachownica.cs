@@ -414,15 +414,15 @@ namespace Warcaby
                     if (a.polePionka == b.polePionka)
                         wszystkiePionki.Remove(b);
         }
-        public void wczytajPionek(Gracz wlasciciel, int i, int j)
+        public void wczytajPionek(Gracz wlasciciel, int i, int j) // metoda pozwalajaca ustawić pionki i przypisac je wlascicielowi wczytując gre
         {
             wszystkiePionki.Add(new Pionek(wlasciciel, plansza[i,j], false));
         }
-        public void wczytajDamke(Gracz wlasciciel, int i, int j)
+        public void wczytajDamke(Gracz wlasciciel, int i, int j) // metoda pozwalajaca ustawić damki i przypisac je wlascicielowi wczytując gre
         {
             wszystkiePionki.Add(new Pionek(wlasciciel, plansza[i,j], true));
         }
-        public void wyczysc()
+        public void wyczysc() // metoda usuwająca wszystkie pionki z szachownicy
         {
             wszystkiePionki.Clear();
         }

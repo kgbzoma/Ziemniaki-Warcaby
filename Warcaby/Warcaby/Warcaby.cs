@@ -92,7 +92,7 @@ namespace Warcaby
         {
             graczPrzyKolejce.ruchAi(ref gameBoard);
         }
-        public void zapis()
+        public void zapis() // metoda pozwalająca zapisać stan gry
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -104,12 +104,12 @@ namespace Warcaby
                 StreamWriter zapisuj = new StreamWriter(plik);
                 if (humanPlayer.kolorGracza == Color.Black)
                 {
-                    zapisuj.Write("b");//kolor gracza czarny kompa biały
+                    zapisuj.Write("b");//kolor gracza czarny komputera biały
                     zapisuj.Write(Environment.NewLine);
                 }
                 else if (humanPlayer.kolorGracza == Color.BlanchedAlmond)
                 {
-                    zapisuj.Write("w");
+                    zapisuj.Write("w");//kolor gracza biały komputera czarny
                     zapisuj.Write(Environment.NewLine);
                 }
                 for (int j = 1; j <= 8; j++)
@@ -152,9 +152,9 @@ namespace Warcaby
             }
         }
 
-        public void odczyt()
+        public void odczyt() // metoda pozwalająca wczytać uprzednio zapisany stan gry
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog(); 
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.InitialDirectory = Application.StartupPath;
             DialogResult czyok=openFileDialog1.ShowDialog();
