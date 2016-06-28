@@ -14,20 +14,12 @@ namespace Warcaby
         private Gracz humanPlayer;
         private Gracz computerPlayer;
         private Gracz graczPrzyKolejce;
-        //private List<Ruch> listaMozliwychRuchow=new List<Ruch>();
         private Pole zaznaczone=null;
-        //bool czyZaznaczonoCos = false;
-        public Warcaby()
+        public Szachownica dostanPlansze() //Metoda pozwalająca przekazać obiekt klasy Szachownica do presentera
         {
-           /* kolorZostalWybrany(Color.White);
-            if (czyMoznaZaznaczyc(gameBoard['A', 6]))
-                MessageBox.Show("MOZNA");*/
+            return gameBoard; 
         }
-        public Szachownica dostanPlansze()
-        {
-            return gameBoard;
-        }
-        public void kolorZostalWybrany(Color wybranyKolor)
+        public void kolorZostalWybrany(Color wybranyKolor) //Metoda tworząca obiekty graczy w zależności od wybranego przez człowieka koloru.
         {
             if(wybranyKolor==Color.Black)
             {
@@ -41,8 +33,7 @@ namespace Warcaby
                 computerPlayer = new Gracz(false, Color.Black);
                 graczPrzyKolejce = humanPlayer;
             }
-            gameBoard.ustawPionki(humanPlayer, computerPlayer);
-            
+            gameBoard.ustawPionki(humanPlayer, computerPlayer);            
             graczPrzyKolejce.MozliweBicia(gameBoard);
             if (graczPrzyKolejce == computerPlayer)
             {
@@ -50,17 +41,16 @@ namespace Warcaby
                 zmianaKolejki();
             }
         }
-        public Gracz ktoPrzyKolejce { get { return graczPrzyKolejce; } }
-        public void zmianaKolejki()
+        public Gracz ktoPrzyKolejce { get { return graczPrzyKolejce; } } //Właściwość pozwalająca dowiedzieć się kto aktualnie ma wykonać ruch
+        public void zmianaKolejki() //Metoda zmieniająca który gracz ma teraz wykonać ruch
         {
             graczPrzyKolejce.czyszczenieRuchow();
             if (graczPrzyKolejce == humanPlayer)
                 graczPrzyKolejce = computerPlayer;
             else graczPrzyKolejce = humanPlayer;
-
             graczPrzyKolejce.MozliweBicia(gameBoard);
         }
-        public bool czyMoznaZaznaczyc(Pole zaznaczonePole)
+        public bool czyMoznaZaznaczyc(Pole zaznaczonePole) //Metoda sprawdzająca czy dane pole można zaznaczyć.
         {
             if (gameBoard.czyJestPionekTegoPana(graczPrzyKolejce, zaznaczonePole))
             {
@@ -69,50 +59,38 @@ namespace Warcaby
                     if (graczPrzyKolejce.czyMoznaZaznaczycPionka(zaznaczonePole))
                     {
                         zaznaczone = zaznaczonePole;
-                        graczPrzyKolejce.zaznaczono(zaznaczonePole);
                         return true;
-                    }
-                    
+                    }                   
                 }
-                
-               
-            }
-            
+            }            
             return false;
         }
-        public bool czyMogeWykonacRuch(Pole zaznaczonePole)
+        public bool czyMogeWykonacRuch(Pole zaznaczonePole) //Metoda sprawdzająca czy można wykonać ruch na dane pole
         {
             if (graczPrzyKolejce.czyMogeWykonacRuch(zaznaczone, zaznaczonePole))
             {
                 graczPrzyKolejce.wykonajRuch(zaznaczone, zaznaczonePole, ref gameBoard);
-                zaznaczone = null;
-                //zmianaKolejki();               
-                //graczPrzyKolejce.MozliweBicia(gameBoard);
-                
+                zaznaczone = null;               
                 return true;
-
             }
             return false;
         }
-        public bool czyMogeOdznaczyc(Pole zaznaczonePole)
+        public bool czyMogeOdznaczyc(Pole zaznaczonePole) //Metoda sprawdzająca czy dane pole mogę odznaczyć 
         {
             if (zaznaczone == zaznaczonePole)
             {
                 zaznaczone = null;
-                graczPrzyKolejce.odznaczono(gameBoard);
                 return true;
             }
             return false;
         }
-        public bool czyKoniec()
+        public bool czyKoniec() //Metoda sprawdzająca czy nastąpił koniec gry
         {
             return graczPrzyKolejce.czyToJuzJestKoniec();
         }
-        public void ruchAI()
+        public void ruchAI() //Metoda wykonująca ruch gracza komputerowego
         {
             graczPrzyKolejce.ruchAi(ref gameBoard);
-            //zmianaKolejki();
-            //graczPrzyKolejce.MozliweBicia(gameBoard);
         }
         public void zapis()
         {
@@ -241,12 +219,5 @@ namespace Warcaby
                 }
             }
         }
-        public void RuchaKomputera()
-        {
-            graczPrzyKolejce.ruchAi(ref gameBoard);
-            //zmianaKolejki();
-        }
-    
-
 }
 }

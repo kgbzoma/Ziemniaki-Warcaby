@@ -9,22 +9,10 @@ namespace Warcaby
 {
     class Pole
     {
-        public Color jakiKolorMaPole { get; private set; }
-        public Pole(Color JakiKolor)
+        public Color jakiKolorMaPole { get; private set; } //Właściwość pozwalająca nam odczytać kolor pola.
+        public Pole(Color JakiKolor) //Konstruktor przypisujący kolor pola na start.
         {
             jakiKolorMaPole = JakiKolor;
         }
-       
-    /*
-        public Pole(Point punkt,Color kolor)
-        {
-            PunktRysowania = punkt;
-            kolorPola = kolor;
-        }
-        private Point PunktRysowania;
-        public Point JakiPunkt { get { return PunktRysowania; } set { PunktRysowania = value; } }
-        Color kolorPola;
-        public Color JakiKolor { get { return kolorPola; } }
-        */
     }
 }
