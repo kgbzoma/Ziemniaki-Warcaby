@@ -1,10 +1,10 @@
-w
- q q q q
-q q q q 
- q q   q
-    q   
-       a
-a a a   
- a a a a
-a a a a 
+b
+ d      
+  q     
+        
+q q     
+   a   a
+  a     
+   a   a
+        
 h
