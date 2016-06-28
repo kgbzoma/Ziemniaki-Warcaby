@@ -145,6 +145,7 @@ namespace Warcaby
             comboBox1.SelectedText = "";
             zapiszToolStripMenuItem.Visible = false;
             nowaGraToolStripMenuItem.Visible = false;
+            label1.Text = "Wybierz kolor pionków: ";
         }
 
         private void WarcabyView_Paint(object sender, PaintEventArgs e)
@@ -253,13 +254,16 @@ namespace Warcaby
         public void Koniec()
         {
             Refresh();
-            Label koniec = new Label();
-            koniec.Text = "Koniec gry!";
-            koniec.Location = new Point(100, 100);
-            koniec.ForeColor = System.Drawing.Color.SaddleBrown;
-            koniec.Font = new Font("MonotypeCorsiva", 16,
-                koniec.Font.Style, koniec.Font.Unit);
-            this.Controls.Add(koniec);
+            //Label koniec = new Label();
+            //koniec.Text = "Koniec gry!";
+            //koniec.Location = new Point(this.Width/2, this.Height/2);
+            //koniec.Size = new Size(200, 400);
+            //koniec.ForeColor = System.Drawing.Color.SaddleBrown;
+            //koniec.Font = new Font("Monotype Corsiva", 32,
+            //    koniec.Font.Style, koniec.Font.Unit);
+            //this.Controls.Add(koniec);
+            label1.Visible = true;
+            label1.Text = "KONIEC GRY!";
         }
 
         private void label1_Click(object sender, EventArgs e)

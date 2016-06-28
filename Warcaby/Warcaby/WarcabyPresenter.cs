@@ -64,6 +64,7 @@ namespace Warcaby
             if (zap.czyZapis)
             {
                 model.zapis();
+               
             }
             if(zap.czyWczytaj==1)
             {
@@ -71,12 +72,21 @@ namespace Warcaby
                 model.odczyt();
                 rysowaniePlanszy();
             }
+            if (zap.CzyKoniec == 't')
+                Application.Exit();
+            if(zap.NowaGra == "zaczynamy")
+            {
+                gameBoard.wyczysc();
+                view.nowaGra();
+
+            }
+
         }
         public void HandleMouseInteraction(object sender, WarcabyView.MouseInteractionArgs arg)
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
             {
-                view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.Green);
+                view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.GreenYellow);
                 if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
                     view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka);
                 else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
