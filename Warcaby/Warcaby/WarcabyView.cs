@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Globalization;
 
@@ -142,6 +143,8 @@ namespace Warcaby
             label1.Visible = true;
             menuStrip1.Visible = true;
             comboBox1.SelectedText = "";
+            zapiszToolStripMenuItem.Visible = false;
+            nowaGraToolStripMenuItem.Visible = false;
         }
 
         private void WarcabyView_Paint(object sender, PaintEventArgs e)
@@ -244,6 +247,7 @@ namespace Warcaby
                 zapiszToolStripMenuItem.Visible = true;
                 nowaGraToolStripMenuItem.Visible = true;
                 czyWybrano = true;
+                
             }
         }
         public void Koniec()
@@ -279,6 +283,7 @@ namespace Warcaby
                 ButtonClick?.Invoke(this, wcz);
             czyWybrano = true;
             zapiszToolStripMenuItem.Visible = true;
+            nowaGraToolStripMenuItem.Visible=true;
         }
          private void nowaGraToolStripMenuItem_Click(object sender, EventArgs e)
         {
