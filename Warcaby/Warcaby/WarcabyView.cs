@@ -17,75 +17,75 @@ namespace Warcaby
 
 
         private bool czyWybrano = false;
-        public class UserInteractionArgs : EventArgs
+        public class UserInteractionArgs : EventArgs //klasa odpowiedzialna za interakcje z użytkownikiem
         {
            
 
-            public enum KolorGracza
+            public enum KolorGracza //typ enum ustalający, czy gracz gra czarnymi, czy białymi pionkami
             {
                 Bialy = 1, Czarny
             }
             
-            public KolorGracza Gracz { get; private set; }
-            public string Wybor { get; private set; }
+            public KolorGracza Gracz { get; private set; } //właściwość ustawiająca kolor gracza
+            public string Wybor { get; private set; } //tekst wybrany przez użytkownika podczas wyboru gracza
 
 
-            public UserInteractionArgs(KolorGracza gracz, string wybor)
+            public UserInteractionArgs(KolorGracza gracz, string wybor) //konstruktor klasy UserInteractionArgs
             {
                 Gracz = gracz;
                 Wybor = wybor;
             }
             
         }
-        public class ButtonInteractionArgs: EventArgs
+        public class ButtonInteractionArgs: EventArgs // klasa odpowiedzialna za interakcję przez wciśnięcie buttonu (lub innych podobnych elementów) przez użytkownika
         {
-            public bool czyZapis { get; private set; }
-            public int czyWczytaj { get; private set; }
-            public char CzyKoniec { get; private set; }
-            public string NowaGra { get; private set; }
-            public ButtonInteractionArgs(bool czyZapisac)
+            public bool czyZapis { get; private set; } //właściwość ustalająca, czy gracz chce zapisać grę
+            public int czyWczytaj { get; private set; } //właściwość ustalająca, czy gracz chce wczytać grę
+            public char CzyKoniec { get; private set; } //właściwość ustalająca, czy gracz chce zakończyć grę
+            public string NowaGra { get; private set; } //właściwość ustalająca, czy gracz chce rozpocząć nową grę
+            public ButtonInteractionArgs(bool czyZapisac) //konstruktor klasy, zależny od zmiennej bool pozwalający zapisać grę
             {
                 czyZapis = czyZapisac;
             }
-            public ButtonInteractionArgs(int czyWczytac)
+            public ButtonInteractionArgs(int czyWczytac) //konstruktor klasy, zależny od zmiennej int pozwalający wczytać grę
             {
                 czyWczytaj = czyWczytac;
             }
-            public ButtonInteractionArgs(char czyKoniec)
+            public ButtonInteractionArgs(char czyKoniec) //konstruktor klasy, zależny od zmiennej char pozwalający zakoczyć grę
             {
                 CzyKoniec = czyKoniec;
             }
-            public ButtonInteractionArgs(string nowaGra)
+            public ButtonInteractionArgs(string nowaGra) //konstruktor klasy, zależny od zmiennej string pozwalający rozpocząć nową grę
             {
                 NowaGra = nowaGra;
             }
 
         }
-        public class MouseInteractionArgs : EventArgs
+        public class MouseInteractionArgs : EventArgs //klasa pozwalająca obsłużyć kliknięcie myszy
         {
 
-            public char posX { get; private set; }
-            public int posY { get; private set; }
-            public MouseInteractionArgs(char PozycjaX, int PozycjaY)
+            public char posX { get; private set; } //właściwość ustalająca pozycję X
+            public int posY { get; private set; } //właściwość ustalająca pozycję Y
+            public MouseInteractionArgs(char PozycjaX, int PozycjaY) //konstruktor zależny od pozycji
             {
                 posX = PozycjaX;
                 posY = PozycjaY;
             }
         }
-        public event EventHandler<UserInteractionArgs> UserInteraction;
-        public event EventHandler<MouseInteractionArgs> aMouseClick;
-        public event EventHandler<ButtonInteractionArgs> ButtonClick;
+        public event EventHandler<UserInteractionArgs> UserInteraction; //zdarzenie do obsługi interakcji z użytkownikiem
+        public event EventHandler<MouseInteractionArgs> aMouseClick; //zdarzenie do obsługi kliknięcia myszy przez użytkownika
+        public event EventHandler<ButtonInteractionArgs> ButtonClick;  //zdarzenie do obsługi wciśnięcia przycisku
 
-        public WarcabyView()
+        public WarcabyView() //kostruktor widoku
         {
             InitializeComponent();
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
-            this.Text = "Warcaby MVP";
+            this.MaximumSize = this.Size; // pozwala na nierozciąganie
+            this.MinimumSize = this.Size; // okna
+            this.Text = "Warcaby MVP"; //nazwa okna
 
         }
 
-        public void RysujPole(int xPos, int yPos, Color kolor)
+        public void RysujPole(int xPos, int yPos, Color kolor) //metoda rysująca pole na Formie w zależności od położenia i koloru
         {
             System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(kolor);
             System.Drawing.Graphics formGraphics;
@@ -96,7 +96,7 @@ namespace Warcaby
             
         }
 
-        public void RysujPionek(int xPos, int yPos, Color kolor)
+        public void RysujPionek(int xPos, int yPos, Color kolor) //metoda rysująca pionek w zależności od położenia i koloru
         {
             if (kolor == Color.Black)
             {
@@ -115,7 +115,7 @@ namespace Warcaby
             }
         }
 
-        public void rysujDamke(int xPos, int yPos, Color kolor)
+        public void rysujDamke(int xPos, int yPos, Color kolor) //metoda rysująca pionek - damkę w zależności od położenia i koloru
         {
             if (kolor == Color.Black)
             {
@@ -136,7 +136,7 @@ namespace Warcaby
 
         
 
-        public void nowaGra()
+        public void nowaGra() //metoda ustalająca parametry nowej gry (po wciśnięciu przycisku z menu)
         {
             Refresh();
             comboBox1.Visible = true;
@@ -153,7 +153,7 @@ namespace Warcaby
             
         }
 
-        public static Image resizeImage(Image imgToResize, Size size)
+        public static Image resizeImage(Image imgToResize, Size size) //metoda pozwalająca na zmianę rozmiaru obrazka
         {
             return (Image)(new Bitmap(imgToResize, size));
         }
@@ -251,17 +251,9 @@ namespace Warcaby
                 
             }
         }
-        public void Koniec()
+        public void Koniec() // metoda obsługująca koniec gry
         {
             Refresh();
-            //Label koniec = new Label();
-            //koniec.Text = "Koniec gry!";
-            //koniec.Location = new Point(this.Width/2, this.Height/2);
-            //koniec.Size = new Size(200, 400);
-            //koniec.ForeColor = System.Drawing.Color.SaddleBrown;
-            //koniec.Font = new Font("Monotype Corsiva", 32,
-            //    koniec.Font.Style, koniec.Font.Unit);
-            //this.Controls.Add(koniec);
             label1.Visible = true;
             label1.Text = "KONIEC GRY!";
         }

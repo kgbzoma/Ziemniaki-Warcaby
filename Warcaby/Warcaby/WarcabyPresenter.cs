@@ -20,9 +20,6 @@ namespace Warcaby
         private Szachownica gameBoard;
 
 
-        public WarcabyPresenter() { }
-
-
         public WarcabyPresenter(Warcaby model, WarcabyView view)
         { 
             View = view;
@@ -115,13 +112,6 @@ namespace Warcaby
                     this.rysowaniePlanszy();
                 }
                 KoniecGry();
-
-
-
-
-
-
-
             }
             
         }
