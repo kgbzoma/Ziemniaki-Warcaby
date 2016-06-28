@@ -55,6 +55,7 @@ namespace Warcaby
                 case WarcabyView.UserInteractionArgs.KolorGracza.Czarny:
                     model.kolorZostalWybrany(Color.Black);
                     rysowaniePlanszy();
+                   
                     break;
 
             }
@@ -77,6 +78,7 @@ namespace Warcaby
             }
             if(zap.NowaGra == "zaczynamy")
             {
+                gameBoard.wyczysc();
                 view.nowaGra();
             }
         }
@@ -88,11 +90,20 @@ namespace Warcaby
                 if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
                 {
                     view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.GreenYellow);
-                    if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
-                        view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
-                    else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
-                        view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
+                {
+                    view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                    if (gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka == Color.Black)
+                        view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.Black);
+
                 }
+                else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
+                {
+                    view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                    if (gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka == Color.Black)
+                        view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.Black);
+                }
+            }
                 else if (model.czyMogeOdznaczyc(gameBoard[arg.posX, arg.posY]))
                 {
                     view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
