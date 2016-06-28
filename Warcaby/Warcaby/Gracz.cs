@@ -30,7 +30,12 @@ namespace Warcaby
                     if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
                     {
                         if (gameBoard.zdobaczPionkaZPola(gameBoard[i, j]).czyDamka)
+                        {
+                            //Szachownica pomocnicza = new Szachownica();
+                            //pomocnicza = gameBoard;
+                            //pomocnicza.usunPionek(pomocnicza.zdobaczPionkaZPola(pomocnicza[i, j]));
                             gameBoard.bicieDamka(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
+                        }
                         else gameBoard.sprawdzanieBiciaPionek(this, gameBoard[i, j], gameBoard[i, j], new List<Pionek>(), ref biciaMaxymalne);
                         for (int z = 0; z <= 2; z++)
                             foreach (var a in biciaMaxymalne.ToList())
