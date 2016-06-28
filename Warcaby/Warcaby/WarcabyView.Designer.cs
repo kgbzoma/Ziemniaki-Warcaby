@@ -89,13 +89,15 @@
             // nowaGraToolStripMenuItem
             // 
             this.nowaGraToolStripMenuItem.Name = "nowaGraToolStripMenuItem";
-            this.nowaGraToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.nowaGraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nowaGraToolStripMenuItem.Text = "Nowa Gra";
+            this.nowaGraToolStripMenuItem.Visible = false;
+            this.nowaGraToolStripMenuItem.Click += new System.EventHandler(this.nowaGraToolStripMenuItem_Click);
             // 
             // zapiszToolStripMenuItem
             // 
             this.zapiszToolStripMenuItem.Name = "zapiszToolStripMenuItem";
-            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.zapiszToolStripMenuItem.Text = "Zapisz";
             this.zapiszToolStripMenuItem.Visible = false;
             this.zapiszToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
@@ -103,15 +105,16 @@
             // wczytajToolStripMenuItem
             // 
             this.wczytajToolStripMenuItem.Name = "wczytajToolStripMenuItem";
-            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.wczytajToolStripMenuItem.Text = "Wczytaj";
             this.wczytajToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
             // 
             // wyjdźToolStripMenuItem
             // 
             this.wyjdźToolStripMenuItem.Name = "wyjdźToolStripMenuItem";
-            this.wyjdźToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.wyjdźToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.wyjdźToolStripMenuItem.Text = "Wyjdź";
+            this.wyjdźToolStripMenuItem.Click += new System.EventHandler(this.wyjdźToolStripMenuItem_Click);
             // 
             // WarcabyView
             // 
