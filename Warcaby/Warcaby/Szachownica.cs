@@ -66,18 +66,24 @@ namespace Warcaby
         public void sprawdzanieBiciaPionek(Gracz wlasciciel, Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia, ref List<Ruch> bicia)
         {
             List<Pionek> nowaLista = new List<Pionek>();
-            foreach(var a in listaDoZbicia)
+            foreach (var a in listaDoZbicia)
             {
                 nowaLista.Add(a);
             }
+            List<Pionek> nowaLista2 = new List<Pionek>();
+            foreach (var a in listaDoZbicia)
+            {
+                nowaLista2.Add(a);
+            }
+
             sprawdzanieBiciaPionekLewo(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicia);
-            sprawdzanieBiciaPionekPrawo(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicia);
+            sprawdzanieBiciaPionekPrawo(wlasciciel, sprawdzane, oryginal, nowaLista2, ref bicia);
         }
         public void sprawdzanieBiciaPionekPrawo(Gracz wlasciciel, Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia, ref List<Ruch> bicia)
         {
             if (wlasciciel.czyJestemCzlowiekiem)
             {
-                if (czyWPlanszyiWolne(sprawdzane, 2, -2))
+                if (czyWPlanszy(sprawdzane, 2, -2)&& czyWolne(sprawdzane, 2, -2))
                 {
                     if (czyCosObokDoZbicia(sprawdzane, 1, -1, wlasciciel))
                     {
@@ -90,7 +96,7 @@ namespace Warcaby
             }
             else if (wlasciciel.czyJestemCzlowiekiem == false)
             {
-                if (czyWPlanszyiWolne(sprawdzane, 2, 2))
+                if (czyWPlanszy(sprawdzane, 2, 2)&&czyWolne(sprawdzane,2,2))
                 {
                     if (czyCosObokDoZbicia(sprawdzane, 1, 1, wlasciciel))
                     {
@@ -107,7 +113,7 @@ namespace Warcaby
         {
             if (wlasciciel.czyJestemCzlowiekiem)
             {
-                if (czyWPlanszyiWolne(sprawdzane, -2, -2))
+                if (czyWPlanszy(sprawdzane, -2, -2)&&czyWolne(sprawdzane, -2, -2))
                 {
                     if (czyCosObokDoZbicia(sprawdzane, -1, -1, wlasciciel))
                     {
@@ -122,7 +128,7 @@ namespace Warcaby
 
             else if (wlasciciel.czyJestemCzlowiekiem == false)
             {
-                if (czyWPlanszyiWolne(sprawdzane, -2, 2))
+                if (czyWolne(sprawdzane, -2, 2)&& czyWolne(sprawdzane, -2, 2))
                 {
 
                     if (czyCosObokDoZbicia(sprawdzane, -1, 1, wlasciciel))
@@ -144,12 +150,12 @@ namespace Warcaby
             List<Ruch> listaRuchow = new List<Ruch>();
             if (wlasciciel.czyJestemCzlowiekiem)
             {
-                if (czyWPlanszyiWolne(sprawdzane, -1, -1))
+                if (czyWPlanszy(sprawdzane, -1, -1)&& czyWolne(sprawdzane, -1, -1))
                 {
                     Tuple<int, int> para = zdobadzPozycje(sprawdzane);
                     listaRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 - 1, para.Item2 - 1], new List<Pionek>()));
                 }
-                if (czyWPlanszyiWolne(sprawdzane, 1, -1))
+                if (czyWPlanszy(sprawdzane, 1, -1)&& czyWolne(sprawdzane, 1, -1))
                 {                   
                         Tuple<int, int> para = zdobadzPozycje(sprawdzane);
                     listaRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + 1, para.Item2 - 1], new List<Pionek>()));
@@ -157,12 +163,12 @@ namespace Warcaby
             }
             else
             {
-                if (czyWPlanszyiWolne(sprawdzane, -1, 1))
+                if (czyWolne(sprawdzane, -1, 1)&& czyWPlanszy(sprawdzane, -1, 1))
                 {                   
                         Tuple<int, int> para = zdobadzPozycje(sprawdzane);
                     listaRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 - 1, para.Item2 + 1], new List<Pionek>()));
                 }
-                if (czyWPlanszyiWolne(sprawdzane, 1, 1))
+                if (czyWolne(sprawdzane, 1, 1)&& czyWPlanszy(sprawdzane, 1, 1))
                 {                   
                         Tuple<int, int> para = zdobadzPozycje(sprawdzane);
                     listaRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + 1, para.Item2 + 1], new List<Pionek>()));
@@ -172,18 +178,62 @@ namespace Warcaby
             }
             return listaRuchow;
         }
+        public List<Ruch> ruchDamka(Gracz wlasciciel,Pole sprawdzane)
+        {
+            Tuple<int, int> para = zdobadzPozycje(sprawdzane);
+            List<Ruch> zbiorRuchow = new List<Ruch>();
+            int wektorX = -1;
+            int wektorY = -1;
+            while(czyWPlanszy(sprawdzane,wektorX,wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
+            {
 
+                zbiorRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + wektorX, para.Item2 + wektorY], new List<Pionek>()));
+                wektorX--;
+                wektorY--;
+            }
+            wektorX = -1;
+            wektorY = 1;
+            while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
+            {
+
+                zbiorRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + wektorX, para.Item2 + wektorY], new List<Pionek>()));
+                wektorX--;
+                wektorY++;
+            }
+            wektorX = 1;
+            wektorY = -1;
+            while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
+            {
+
+                zbiorRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + wektorX, para.Item2 + wektorY], new List<Pionek>()));
+                wektorX++;
+                wektorY--;
+            }
+            wektorX = 1;
+            wektorY = 1;
+            while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
+            {
+
+                zbiorRuchow.Add(new Ruch(sprawdzane, plansza[para.Item1 + wektorX, para.Item2 + wektorY], new List<Pionek>()));
+                wektorX++;
+                wektorY++;
+            }
+            return zbiorRuchow;
+        }
         public void bicieDamka(Gracz wlasciciel,Pole sprawdzane,Pole oryginal,List<Pionek> listaDoZbicia,ref List<Ruch> bicie)
         {
-           // sprawdzanieBiciaDamkiLewoDol(wlasciciel, sprawdzane, oryginal, listaDoZbicia, ref bicie);
-            //sprawdzanieBiciaDamkiLewoGora(wlasciciel, sprawdzane, oryginal, listaDoZbicia, ref bicie);
-            //sprawdzanieBiciaDamkiPrawoGora(wlasciciel, sprawdzane, oryginal, listaDoZbicia, ref bicie);
-           // sprawdzanieBiciaDamkiPrawoDol(wlasciciel, sprawdzane, oryginal, listaDoZbicia, ref bicie);
+            List<Pionek> nowaLista = new List<Pionek>();
+            foreach (var a in listaDoZbicia)
+                nowaLista.Add(a);
+            sprawdzanieBiciaDamkiLewoDol(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
+            sprawdzanieBiciaDamkiLewoGora(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
+            sprawdzanieBiciaDamkiPrawoGora(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
+            sprawdzanieBiciaDamkiPrawoDol(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
         }
         public void sprawdzanieBiciaDamkiLewoGora(Gracz wlasciciel,Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia,ref List<Ruch> bicie)
         {
             Tuple<int, int> para = zdobadzPozycje(sprawdzane);            
-            if (czyWPlanszyiWolne(sprawdzane, -2, -2))
+            if (czyWPlanszy(sprawdzane, -2, -2)&& czyWolne(sprawdzane, -2, -2))
             {
                 //Tuple<int, int> para = zdobadzPozycje(sprawdzanePosrednie);
                 if (czyCosObokDoZbicia(sprawdzane, -1, -1, wlasciciel))
@@ -191,7 +241,7 @@ namespace Warcaby
                     listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 - 1, para.Item2 - 1]));
                     int wektorX = -2;
                     int wektorY = -2;
-                    while (czyWPlanszyiWolne(sprawdzane, wektorX, wektorY))
+                    while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
                     {
                         bicie.Add(new Ruch(oryginal, plansza[para.Item1 + wektorX, para.Item2 + wektorY], listaDoZbicia));
                         bicieDamka(wlasciciel, plansza[para.Item1 +wektorX, para.Item2+ wektorY], oryginal, listaDoZbicia, ref bicie);
@@ -200,17 +250,18 @@ namespace Warcaby
                     }
                     //(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia);
                 }
-                else if (czyWPlanszyiWolne(sprawdzane, -1, -1))
-                {
-                    sprawdzanieBiciaDamkiLewoGora(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia,ref bicie);
-                }
+                
             }
-                           
+            else if (czyWolne(sprawdzane, -1, -1)&& czyWPlanszy(sprawdzane, -2, -2))
+            {
+
+                sprawdzanieBiciaDamkiLewoGora(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia, ref bicie);
+            }
         }
         public void sprawdzanieBiciaDamkiLewoDol(Gracz wlasciciel, Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia, ref List<Ruch> bicie)
         {
             Tuple<int, int> para = zdobadzPozycje(sprawdzane);
-            if (czyWPlanszyiWolne(sprawdzane, -2, 2))
+            if (czyWPlanszy(sprawdzane, -2, 2)&& czyWolne(sprawdzane, -2, 2))
             {
                 //Tuple<int, int> para = zdobadzPozycje(sprawdzanePosrednie);
                 if (czyCosObokDoZbicia(sprawdzane, -1, 1, wlasciciel))
@@ -218,7 +269,7 @@ namespace Warcaby
                     listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 - 1, para.Item2 + 1]));
                     int wektorX = -2;
                     int wektorY = 2;
-                    while (czyWPlanszyiWolne(sprawdzane, wektorX, wektorY))
+                    while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
                     {
                         bicie.Add(new Ruch(oryginal, plansza[para.Item1 + wektorX, para.Item2 + wektorY], listaDoZbicia));
                         bicieDamka(wlasciciel, plansza[para.Item1 + wektorX, para.Item2 + wektorY], oryginal, listaDoZbicia, ref bicie);
@@ -227,17 +278,17 @@ namespace Warcaby
                     }
                     //(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia);
                 }
-                else if (czyWPlanszyiWolne(sprawdzane, -1, 1))
-                {
-                    sprawdzanieBiciaDamkiLewoDol(wlasciciel, plansza[para.Item1 - 2, para.Item2 + 2], oryginal, listaDoZbicia, ref bicie);
-                }
+                
             }
-
+            else if (czyWolne(sprawdzane, -1, 1)&& czyWPlanszy(sprawdzane, -2, 2))
+            {
+                sprawdzanieBiciaDamkiLewoDol(wlasciciel, plansza[para.Item1 - 2, para.Item2 + 2], oryginal, listaDoZbicia, ref bicie);
+            }
         }
         public void sprawdzanieBiciaDamkiPrawoGora(Gracz wlasciciel, Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia, ref List<Ruch> bicie)
         {
             Tuple<int, int> para = zdobadzPozycje(sprawdzane);
-            if (czyWPlanszyiWolne(sprawdzane, 2, -2))
+            if (czyWPlanszy(sprawdzane, 2, -2)&& czyWolne(sprawdzane, 2, -2))
             {
                 //Tuple<int, int> para = zdobadzPozycje(sprawdzanePosrednie);
                 if (czyCosObokDoZbicia(sprawdzane, 1, -1, wlasciciel))
@@ -245,7 +296,7 @@ namespace Warcaby
                     listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 + 1, para.Item2 - 1]));
                     int wektorX = 2;
                     int wektorY = -2;
-                    while (czyWPlanszyiWolne(sprawdzane, wektorX, wektorY))
+                    while (czyWolne(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
                     {
                         bicie.Add(new Ruch(oryginal, plansza[para.Item1 + wektorX, para.Item2 + wektorY], listaDoZbicia));
                         bicieDamka(wlasciciel, plansza[para.Item1 + wektorX, para.Item2 + wektorY], oryginal, listaDoZbicia, ref bicie);
@@ -254,17 +305,17 @@ namespace Warcaby
                     }
                     //(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia);
                 }
-                else if (czyWPlanszyiWolne(sprawdzane, 1, -1))
-                {
-                    sprawdzanieBiciaDamkiPrawoGora(wlasciciel, plansza[para.Item1 + 2, para.Item2 - 2], oryginal, listaDoZbicia, ref bicie);
-                }
+                
             }
-
+            else if (czyWolne(sprawdzane, 1, -1)&& czyWPlanszy(sprawdzane, 2, -2))
+            {
+                sprawdzanieBiciaDamkiPrawoGora(wlasciciel, plansza[para.Item1 + 2, para.Item2 - 2], oryginal, listaDoZbicia, ref bicie);
+            }
         }
         public void sprawdzanieBiciaDamkiPrawoDol(Gracz wlasciciel, Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia, ref List<Ruch> bicie)
         {
             Tuple<int, int> para = zdobadzPozycje(sprawdzane);
-            if (czyWPlanszyiWolne(sprawdzane, 2, 2))
+            if (czyWolne(sprawdzane, 2, 2)&& czyWPlanszy(sprawdzane, 2, 2))
             {
                 //Tuple<int, int> para = zdobadzPozycje(sprawdzanePosrednie);
                 if (czyCosObokDoZbicia(sprawdzane, 1, 1, wlasciciel))
@@ -272,7 +323,7 @@ namespace Warcaby
                     listaDoZbicia.Add(zdobaczPionkaZPola(plansza[para.Item1 + 1, para.Item2 + 1]));
                     int wektorX = 2;
                     int wektorY = 2;
-                    while (czyWPlanszyiWolne(sprawdzane, wektorX, wektorY))
+                    while (czyWPlanszy(sprawdzane, wektorX, wektorY)&& czyWolne(sprawdzane, wektorX, wektorY))
                     {
                         bicie.Add(new Ruch(oryginal, plansza[para.Item1 + wektorX, para.Item2 + wektorY], listaDoZbicia));
                         bicieDamka(wlasciciel, plansza[para.Item1 + wektorX, para.Item2 + wektorY], oryginal, listaDoZbicia, ref bicie);
@@ -281,12 +332,12 @@ namespace Warcaby
                     }
                     //(wlasciciel, plansza[para.Item1 - 2, para.Item2 - 2], oryginal, listaDoZbicia);
                 }
-                else if (czyWPlanszyiWolne(sprawdzane, 1, 1))
-                {
-                    sprawdzanieBiciaDamkiPrawoDol(wlasciciel, plansza[para.Item1 + 2, para.Item2 + 2], oryginal, listaDoZbicia, ref bicie);
-                }
+                
             }
-
+            else if (czyWolne(sprawdzane, 1, 1)&& czyWPlanszy(sprawdzane, 2, 2))
+            {
+                sprawdzanieBiciaDamkiPrawoDol(wlasciciel, plansza[para.Item1 + 2, para.Item2 + 2], oryginal, listaDoZbicia, ref bicie);
+            }
         }
        
         /*
@@ -326,12 +377,19 @@ namespace Warcaby
             }
             return new Ruch(oryginal, sprawdzanePosrednie, listaDoZbicia);
         }*/
-        public bool czyWPlanszyiWolne(Pole sprawdzany, int roznicadlaX, int roznicadlaY)
+        public bool czyWolne(Pole sprawdzany, int roznicadlaX, int roznicadlaY)
+        {
+            Tuple<int, int> para = zdobadzPozycje(sprawdzany);
+            if(czyWPlanszy(sprawdzany,roznicadlaX,roznicadlaY))
+                if (!czyJestPionek(plansza[para.Item1 + roznicadlaX,para.Item2+ roznicadlaY])&&!czyJestDamka(plansza[para.Item1 + roznicadlaX, para.Item2 + roznicadlaY]))
+                return true;
+            return false;
+        }
+        public bool czyWPlanszy(Pole sprawdzany, int roznicadlaX, int roznicadlaY)
         {
             Tuple<int, int> para = zdobadzPozycje(sprawdzany);
             if ((para.Item1 + roznicadlaX >= 0 && para.Item1 + roznicadlaX <= 7) && (para.Item2 + roznicadlaY >= 0 && para.Item2 + roznicadlaY <= 7))
-                if (!czyJestPionek(plansza[para.Item1 + roznicadlaX,para.Item2+ roznicadlaY]))
-                return true;
+                    return true;
             return false;
         }
         public bool czyCosObokDoZbicia(Pole sprawdzany, int roznicadlaX,int roznicadlaY,Gracz wlascicielspr)
