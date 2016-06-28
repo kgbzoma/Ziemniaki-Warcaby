@@ -258,6 +258,7 @@ namespace Warcaby
                 var wcz = new ButtonInteractionArgs(czyWczytac);
                 ButtonClick?.Invoke(this, wcz);
             czyWybrano = true;
+            zapiszToolStripMenuItem.Visible = true;
         }
     }
 
