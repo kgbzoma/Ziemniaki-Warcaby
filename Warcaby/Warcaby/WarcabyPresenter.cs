@@ -114,13 +114,21 @@ namespace Warcaby
                 }
                 else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
             {
-
-                this.rysowaniePlanszy();
-                model.zmianaKolejki();
-                Thread.Sleep((int)TimeSpan.FromSeconds(2).TotalMilliseconds);
-                model.ruchAI();
-                model.zmianaKolejki();
-                this.rysowaniePlanszy();
+                if (!model.czyKoniec())
+                {
+                    view.Koniec();
+                }
+                else
+                {
+                    this.rysowaniePlanszy();
+                    model.zmianaKolejki();
+                    Thread.Sleep((int)TimeSpan.FromSeconds(2).TotalMilliseconds);
+                    model.ruchAI();
+                    model.zmianaKolejki();
+                    this.rysowaniePlanszy();
+                }
+               
+                
             }
             
         }

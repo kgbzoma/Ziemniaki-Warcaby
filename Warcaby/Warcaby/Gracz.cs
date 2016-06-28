@@ -42,14 +42,22 @@ namespace Warcaby
                                 {
                                     biciaMaxymalne.Remove(a);
                                 }
-                    }       
-           
+                    }
+
             if (max == 0)
                 for (char i = 'A'; i <= 'H'; i++)
                     for (int j = 1; j <= 8; j++)
                         if (gameBoard.czyJestPionekTegoPana(this, gameBoard[i, j]))
-                            foreach (var a in gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]))
-                                biciaMaxymalne.Add(a);
+                            if (!gameBoard.zdobaczPionkaZPola(gameBoard[i, j]).czyDamka)
+                            {
+                                foreach (var a in gameBoard.sprawdzanieRuchow(this, gameBoard[i, j]))
+                                    biciaMaxymalne.Add(a);
+                            }
+            else
+                            {
+                                foreach (var a in gameBoard.ruchDamka(this, gameBoard[i, j]))
+                                    biciaMaxymalne.Add(a);
+                            }
 
            foreach (var a in biciaMaxymalne)
             {
