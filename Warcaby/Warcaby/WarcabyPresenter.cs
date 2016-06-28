@@ -77,6 +77,7 @@ namespace Warcaby
             }
             if(zap.NowaGra == "zaczynamy")
             {
+                gameBoard.wyczysc();
                 view.nowaGra();
             }
         }

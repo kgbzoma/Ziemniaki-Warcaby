@@ -279,6 +279,7 @@ namespace Warcaby
                 ButtonClick?.Invoke(this, wcz);
             czyWybrano = true;
             zapiszToolStripMenuItem.Visible = true;
+            nowaGraToolStripMenuItem.Visible=true;
         }
          private void nowaGraToolStripMenuItem_Click(object sender, EventArgs e)
         {
