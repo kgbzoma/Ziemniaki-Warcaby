@@ -225,10 +225,20 @@ namespace Warcaby
             List<Pionek> nowaLista = new List<Pionek>();
             foreach (var a in listaDoZbicia)
                 nowaLista.Add(a);
+            List<Pionek> nowaLista2 = new List<Pionek>();
+            foreach (var a in listaDoZbicia)
+                nowaLista2.Add(a);
+            List<Pionek> nowaLista3 = new List<Pionek>();
+            foreach (var a in listaDoZbicia)
+                nowaLista3.Add(a);
+            List<Pionek> nowaLista4 = new List<Pionek>();
+            foreach (var a in listaDoZbicia)
+                nowaLista4.Add(a);
+
             sprawdzanieBiciaDamkiLewoDol(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
-            sprawdzanieBiciaDamkiLewoGora(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
-            sprawdzanieBiciaDamkiPrawoGora(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
-            sprawdzanieBiciaDamkiPrawoDol(wlasciciel, sprawdzane, oryginal, nowaLista, ref bicie);
+            sprawdzanieBiciaDamkiLewoGora(wlasciciel, sprawdzane, oryginal, nowaLista2, ref bicie);
+            sprawdzanieBiciaDamkiPrawoGora(wlasciciel, sprawdzane, oryginal, nowaLista3, ref bicie);
+            sprawdzanieBiciaDamkiPrawoDol(wlasciciel, sprawdzane, oryginal, nowaLista4, ref bicie);
         }
         public void sprawdzanieBiciaDamkiLewoGora(Gracz wlasciciel,Pole sprawdzane, Pole oryginal, List<Pionek> listaDoZbicia,ref List<Ruch> bicie)
         {

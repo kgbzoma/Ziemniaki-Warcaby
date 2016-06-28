@@ -76,11 +76,19 @@ namespace Warcaby
         {
             if (model.czyMoznaZaznaczyc(gameBoard[arg.posX, arg.posY]))
             {
-                
+                view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), Color.Green);
+                if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
+                    view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka);
+                else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
+                    view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka);
             }
             else if (model.czyMogeOdznaczyc(gameBoard[arg.posX, arg.posY]))
             {
-                
+                view.RysujPole((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard[arg.posX, arg.posY].jakiKolorMaPole);
+                if (gameBoard.czyJestPionek(gameBoard[arg.posX, arg.posY]))
+                    view.RysujPionek((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka);
+                else if (gameBoard.czyJestDamka(gameBoard[arg.posX, arg.posY]))
+                    view.rysujDamke((Convert.ToInt32(arg.posX) - 65), (arg.posY - 1), gameBoard.zdobaczPionkaZPola(gameBoard[arg.posX, arg.posY]).kolorPionka);
             }
             else if (model.czyMogeWykonacRuch(gameBoard[arg.posX, arg.posY]))
             {
@@ -91,6 +99,7 @@ namespace Warcaby
                 model.ruchAI();
                 model.zmianaKolejki();
                 this.rysowaniePlanszy();
+                
             }
             
         }
