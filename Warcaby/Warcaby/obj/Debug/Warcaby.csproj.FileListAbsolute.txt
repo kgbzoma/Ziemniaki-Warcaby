@@ -1,0 +1,9 @@
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\bin\Debug\Warcaby.exe.config
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\bin\Debug\Warcaby.exe
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\bin\Debug\Warcaby.pdb
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.csprojResolveAssemblyReference.cache
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.Properties.Resources.resources
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.csproj.GenerateResource.Cache
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.csproj.CoreCompileInputs.cache
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.exe
+F:\Ziemniaki-Warcaby\Warcaby\Warcaby\obj\Debug\Warcaby.pdb
